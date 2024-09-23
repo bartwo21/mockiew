@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import "./globals.css";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,7 +31,23 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <header className="relative w-full py-6 bg-[#09090B] shadow-md z-10">
+          <nav className="container mx-auto flex justify-between items-center px-4">
+            <Link href="/" className="text-xl font-bold text-gray-100">
+              Mockiew
+            </Link>
+            <div>
+              <Button className="mr-4" variant="ghost">
+                Giriş Yap
+              </Button>
+              <Button className="text-white">Kayıt Ol</Button>
+            </div>
+          </nav>
+        </header>
         {children}
+        <footer className="relative w-full py-6 bg-[#09090B] text-white text-center z-10">
+          <p>&copy; 2024 Mockiew. Tüm hakları saklıdır.</p>
+        </footer>
       </body>
     </html>
   );
