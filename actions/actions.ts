@@ -105,7 +105,7 @@ export const registerWithCreds = async (formData: FormData) => {
 export const saveInterviewAndInterviewQuestions = async (
   userEmail: string,
   jobTitle: string,
-  questions: string[]
+  questions: { questionText: string; answerText: string }[] // Hem sorular hem de cevaplar
 ) => {
   const user = await getUserByEmail(userEmail);
   try {
@@ -121,11 +121,12 @@ export const saveInterviewAndInterviewQuestions = async (
       },
     });
 
-    // 2. Soruları kaydet
+    // 2. Soruları ve cevapları kaydet
     const savedQuestions = await db.question.createMany({
-      data: questions.map((questionText) => ({
+      data: questions.map((q) => ({
         interviewId: interview.id, // Sorular ilgili mülakat ile ilişkilendiriliyor
-        questionText: questionText, // Soru metni
+        questionText: q.questionText, // Soru metni
+        response: q.answerText, // Cevap metni
       })),
     });
 

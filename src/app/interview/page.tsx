@@ -11,15 +11,19 @@ import {
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { saveInterviewAndInterviewQuestions } from "../../../actions/actions";
 
 export default function InterviewPage() {
   const router = useRouter();
-
+  const [userEmail, setUserEmail] = useState(null);
+  const [jobTitleState, setJobTitleState] = useState<string | null>(null);
+  const [answered, setAnswered] = useState(false);
   const { messages, input, handleInputChange, handleSubmit, data, isLoading } =
     useChat();
   const [interviewStarted, setInterviewStarted] = useState(false);
+  const [answers, setAnswers] = useState<string[]>([]);
 
   const assistantMessages = messages.filter(
     (message) => message.role === "assistant"
@@ -34,14 +38,29 @@ export default function InterviewPage() {
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setJobTitleState(input);
     handleSubmit(e);
     setInterviewStarted(true);
   };
 
-  //@TODO interview'ı databaseye kaydederken ai'ın soruları bitirmesini beklemek gerekiyor.
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetch("/api/user");
+      const data = await res.json();
+      setUserEmail(data.user.email);
+    };
+
+    fetchUser();
+  }, []);
 
   const startNewInterview = () => {
     router.back();
+  };
+
+  const handleAnswerChange = (index: number, value: string) => {
+    const newAnswers = [...answers];
+    newAnswers[index] = value;
+    setAnswers(newAnswers);
   };
 
   return (
@@ -88,7 +107,7 @@ export default function InterviewPage() {
         {data && (
           <div className="grid grid-cols-1 gap-4">
             {questions.slice(0, 5).map((question, index) => {
-              let title = question.trim(); // Soruyu temizliyoruz
+              let title = question.trim();
 
               return (
                 <Card key={index} className="w-full bg-transparent">
@@ -103,15 +122,50 @@ export default function InterviewPage() {
                     <Textarea
                       className="mt-4"
                       placeholder="Cevabınızı buraya yazın"
+                      value={answers[index] || ""}
+                      onChange={(e) =>
+                        handleAnswerChange(index, e.target.value)
+                      }
                     />
-                    <Button className="text-white mt-4 mr-auto">Cevapla</Button>
                   </CardFooter>
                 </Card>
               );
             })}
           </div>
         )}
+        {data && userEmail && (
+          <Button
+            onClick={() => {
+              try {
+                saveInterviewAndInterviewQuestions(
+                  userEmail,
+                  jobTitleState || "",
+                  questions.map((question, index) => ({
+                    questionText: question,
+                    answerText: answers[index]?.trim() || "",
+                  }))
+                );
+              } catch (error) {
+                console.error(error);
+              } finally {
+                setAnswered(true);
+                router.push("/interviews");
+              }
+            }}
+            className={`${answered ? "bg-secondary text-white" : "bg-primary"}`}
+            disabled={answered}
+          >
+            {answered ? "Cevaplandırıldı" : "Cevapla"}
+          </Button>
+        )}
       </div>
     </div>
   );
+}
+
+{
+  /* @TODO: interviews diye url ye göndericek orada interview card'ları olacak o cardlara tıklayınca da cevaplarla ilgili geri bildirimleri(ai ile yazılmış) görecek */
+}
+{
+  /* @TODO: ayrıca eğer geri bildirim sayfasına ilk kez giriliyorsa ai ile geri bildirim yazılcak ama sonradan tekrar giriliyorsa ai ile tekrardan geri bildirimini yazmak yerine önceki yazılan geribildirimi databaseye kaydedip oradan cekikcek */
 }
