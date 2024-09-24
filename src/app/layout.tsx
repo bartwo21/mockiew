@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
 import { Button } from "@/components/ui/button";
@@ -57,7 +58,7 @@ export default async function RootLayout({
                   </>
                 ) : (
                   <div className="flex items-center gap-x-3 text-sm">
-                    <p className="bg-zinc-700 px-2 rounded">
+                    <p className="bg-zinc-700 p-[6px] px-4 rounded">
                       {session.user.name}
                     </p>
                     <Logout />
@@ -66,7 +67,10 @@ export default async function RootLayout({
               </div>
             </nav>
           </header>
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow">
+            {children}
+            <Toaster />
+          </main>
           <footer className="w-full py-6 bg-[#09090B] text-white text-center z-10">
             <p>&copy; 2024 Mockiew. Tüm hakları saklıdır.</p>
           </footer>

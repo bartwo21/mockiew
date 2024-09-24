@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { signOut, signIn } from "@/lib/Auth";
@@ -35,11 +36,8 @@ export const loginWithCreds = async (formData: FormData) => {
     email: formData.get("email"),
     password: formData.get("password"),
     role: "USER",
-    redirectTo: "/",
+    redirectTo: "/?successLogin=true",
   };
-
-  const existingUser = await getUserByEmail(formData.get("email") as string);
-  console.log(existingUser);
 
   try {
     await signIn("credentials", rawFormData);
@@ -64,7 +62,7 @@ export const registerWithCreds = async (formData: FormData) => {
     password: formData.get("password"),
     name: formData.get("name"),
     role: "USER",
-    redirectTo: "/",
+    redirectTo: "/?successRegister=true",
   };
 
   const existingUser = await getUserByEmail(formData.get("email") as string);
@@ -102,4 +100,38 @@ export const registerWithCreds = async (formData: FormData) => {
   }
 
   revalidatePath("/");
+};
+
+export const saveInterviewAndInterviewQuestions = async (
+  userEmail: string,
+  jobTitle: string,
+  questions: string[]
+) => {
+  const user = await getUserByEmail(userEmail);
+  try {
+    // 1. Mülakatı oluştur
+    console.log("user", user.id);
+    console.log("jobTitle", jobTitle);
+    console.log("questions", questions);
+    const interview = await db.interview.create({
+      data: {
+        userId: user.id, // Mülakatı oluşturan kullanıcı
+        jobTitle: jobTitle, // Mülakatın iş tanımı
+        status: "pending", // Mülakatın başlangıç durumu
+      },
+    });
+
+    // 2. Soruları kaydet
+    const savedQuestions = await db.question.createMany({
+      data: questions.map((questionText) => ({
+        interviewId: interview.id, // Sorular ilgili mülakat ile ilişkilendiriliyor
+        questionText: questionText, // Soru metni
+      })),
+    });
+
+    return { success: true, interview, savedQuestions };
+  } catch (error) {
+    console.error("Mülakat ve sorular kaydedilirken bir hata oluştu:", error);
+    return { success: false, error: (error as Error).message };
+  }
 };

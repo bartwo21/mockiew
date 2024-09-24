@@ -1,12 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { cardData } from "@/lib/placeHolderDatas";
 import { CustomAvatar } from "@/components/home/avatars";
 import { FeatureCard } from "@/components/home/features";
+import SuccessToast from "@/components/home/SuccessToast";
 
-export default function LandingPage() {
+export default function LandingPage({ searchParams }: { searchParams: any }) {
+  const { successLogin, successRegister } = searchParams;
+
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center bg-[#09090B] px-6">
+      <SuccessToast
+        success={successLogin || successRegister}
+        title={
+          successLogin
+            ? "Başarıyla giriş yaptınız."
+            : "Başarıyla kayıt oldunuz."
+        }
+      />
+
       <div className="absolute inset-0 bg-grid-pattern -mt-4"></div>
       <div className="absolute inset-0 bg-radial-gradient"></div>
       <div className="absolute inset-0 z-20 hidden md:block">

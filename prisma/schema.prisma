@@ -2,7 +2,7 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
- 
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,7 +11,7 @@ enum UserRole {
   ADMIN
   USER
 }
- 
+
 model User {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
@@ -21,14 +21,12 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  role          UserRole?        @default(ADMIN)
-  // Optional for WebAuthn support
-  Authenticator Authenticator[]
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  role          UserRole?        @default(USER)
+  interviews    Interview[]      // Relation to store user's interviews
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
- 
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
@@ -42,47 +40,62 @@ model Account {
   scope             String?
   id_token          String? @db.String
   session_state     String?
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@unique([provider, providerAccountId])
 }
- 
+
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
   userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
+
 model VerificationToken {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   identifier String
   token      String
   expires    DateTime
- 
+
   @@unique([identifier, token])
 }
- 
-// Optional for WebAuthn support
-model Authenticator {
-  credentialID         String  @id @map("_id")
-  userId               String  @db.ObjectId
-  providerAccountId    String
-  credentialPublicKey  String
-  counter              Int
-  credentialDeviceType String
-  credentialBackedUp   Boolean
-  transports           String?
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  @@unique([userId, credentialID])
+
+model Interview {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  jobTitle   String   // The job description or title for the interview
+  questions  Question[] // Relation to generated questions
+  createdAt  DateTime  @default(now())
+  feedback   Feedback? // Relation to feedback
+  status     String    // Could be "pending", "completed", etc.
+
+  user       User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Question {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  interviewId  String   @db.ObjectId
+  questionText String   // The dynamic question text
+  response     String?  // The user's response to the question
+  feedback     String?  // Optional feedback on the user's response
+  correctAnswer String? // The correct answer for the question (optional, if applicable)
+
+  interview  Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+}
+
+model Feedback {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  interviewId String  @db.ObjectId @unique
+  content    String   // Feedback content for the whole interview
+
+  interview  Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
 }
