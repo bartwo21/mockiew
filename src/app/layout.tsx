@@ -41,9 +41,15 @@ export default async function RootLayout({
         >
           <header className="w-full py-6 bg-[#09090B] shadow-md z-10">
             <nav className="container mx-auto flex justify-between items-center px-4">
-              <Link href="/" className="text-xl font-bold text-gray-100">
-                Mockiew
-              </Link>
+              <div className="flex items-center justify-center gap-10">
+                <Link href="/" className="text-2xl font-bold text-gray-100">
+                  Mockiew
+                </Link>
+                <Link href="/interviews">
+                  <Button variant="outline">Mülakatlar</Button>
+                </Link>
+              </div>
+
               <div>
                 {!session?.user ? (
                   <>
@@ -71,8 +77,22 @@ export default async function RootLayout({
             {children}
             <Toaster />
           </main>
-          <footer className="w-full py-6 bg-[#09090B] text-white text-center z-10">
-            <p>&copy; 2024 Mockiew. Tüm hakları saklıdır.</p>
+          <footer className="w-full pt-6 bg-[#09090B] text-white text-center z-10 flex justify-around">
+            <div className="z-10 p-2 bg-slate-300 rounded-t-2xl opacity-40">
+              <p className="text-xs text-gray-800 text-center">
+                Made with ❤️ by{" "}
+                <Link
+                  target="_blank"
+                  className="hover:text-green-600 transition-colors"
+                  href="https://bartwo.vercel.app/"
+                >
+                  Bartu Çakır
+                </Link>
+              </p>
+            </div>
+            <p className="opacity-55 text-xs">
+              &copy; 2024 Mockiew. Tüm hakları saklıdır.
+            </p>
           </footer>
         </body>
       </html>

@@ -4,7 +4,12 @@ import { auth } from "@/lib/Auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const protectedRoutes = ["/dashboard"];
+const protectedRoutes = [
+  "/dashboard",
+  "/interviews",
+  "/interviews/feedback/[id]",
+  "/interview",
+];
 
 export default async function middleware(request: NextRequest) {
   const session = await auth();
@@ -14,7 +19,7 @@ export default async function middleware(request: NextRequest) {
   );
 
   if (isProtected && !session) {
-    const absoluteUrl = new URL("/", request.nextUrl.origin);
+    const absoluteUrl = new URL("/sign-in", request.nextUrl.origin);
     return NextResponse.redirect(absoluteUrl.toString());
   }
 

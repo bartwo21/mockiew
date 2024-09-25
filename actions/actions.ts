@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { saltAndHashPassword } from "@/lib/helper";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const getUserByEmail = async (email: string) => {
   try {
@@ -122,17 +123,61 @@ export const saveInterviewAndInterviewQuestions = async (
     });
 
     // 2. Soruları ve cevapları kaydet
-    const savedQuestions = await db.question.createMany({
+    await db.question.createMany({
       data: questions.map((q) => ({
         interviewId: interview.id, // Sorular ilgili mülakat ile ilişkilendiriliyor
         questionText: q.questionText, // Soru metni
         response: q.answerText, // Cevap metni
       })),
     });
-
-    return { success: true, interview, savedQuestions };
+    // return { success: true, interview, savedQuestions };
   } catch (error) {
     console.error("Mülakat ve sorular kaydedilirken bir hata oluştu:", error);
     return { success: false, error: (error as Error).message };
   }
+  revalidatePath("/interviews");
+  redirect("/interviews");
+};
+
+export const getAllInterviews = async (userEmail: string) => {
+  const user = await getUserByEmail(userEmail);
+  try {
+    const interviews = await db.interview.findMany({
+      where: {
+        userId: user.id,
+      },
+      include: {
+        questions: true,
+        feedback: true,
+      },
+    });
+
+    return interviews;
+  } catch (error) {
+    console.error("Mülakatlar getirilirken bir hata oluştu:", error);
+    return [];
+  }
+};
+
+export const deleteInterview = async (interviewId: number) => {
+  try {
+    await db.interview.delete({
+      where: {
+        id: interviewId,
+      },
+    });
+    await db.question.deleteMany({
+      where: {
+        interviewId,
+      },
+    });
+    await db.feedback.deleteMany({
+      where: {
+        interviewId,
+      },
+    });
+  } catch (error) {
+    console.error("Mülakat silinirken bir hata oluştu:", error);
+  }
+  revalidatePath("/interviews");
 };

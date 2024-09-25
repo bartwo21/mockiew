@@ -149,7 +149,6 @@ export default function InterviewPage() {
                 console.error(error);
               } finally {
                 setAnswered(true);
-                router.push("/interviews");
               }
             }}
             className={`${answered ? "bg-secondary text-white" : "bg-primary"}`}
@@ -161,11 +160,4 @@ export default function InterviewPage() {
       </div>
     </div>
   );
-}
-
-{
-  /* @TODO: interviews diye url ye göndericek orada interview card'ları olacak o cardlara tıklayınca da cevaplarla ilgili geri bildirimleri(ai ile yazılmış) görecek */
-}
-{
-  /* @TODO: ayrıca eğer geri bildirim sayfasına ilk kez giriliyorsa ai ile geri bildirim yazılcak ama sonradan tekrar giriliyorsa ai ile tekrardan geri bildirimini yazmak yerine önceki yazılan geribildirimi databaseye kaydedip oradan cekikcek */
 }

@@ -100,7 +100,7 @@ body {
       transparent 2px
     ),
     linear-gradient(to bottom, rgba(43, 43, 43, 0.2) 2px, transparent 2px);
-  background-size: 90px 90px;
+  background-size: 80px 80px;
 }
 
 .bg-radial-gradient {
