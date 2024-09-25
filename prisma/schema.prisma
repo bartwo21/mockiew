@@ -86,7 +86,6 @@ model Question {
   interviewId  String   @db.ObjectId
   questionText String   // The dynamic question text
   response     String?  // The user's response to the question
-  feedback     String?  // Optional feedback on the user's response
   correctAnswer String? // The correct answer for the question (optional, if applicable)
 
   interview  Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)

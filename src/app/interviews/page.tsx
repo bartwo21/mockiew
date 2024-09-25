@@ -5,7 +5,6 @@ import { getAllInterviews } from "../../../actions/actions";
 import InterviewsLoading from "@/components/interviews/loading";
 import Link from "next/link";
 
-// Dinamik olarak yüklenen ClientInterviewCard bileşeni
 const ClientInterviewCard = React.lazy(
   () => import("@/components/interviews/ClientInterviewCard")
 );

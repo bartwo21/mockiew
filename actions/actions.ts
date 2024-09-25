@@ -146,16 +146,31 @@ export const getAllInterviews = async (userEmail: string) => {
       where: {
         userId: user.id,
       },
-      include: {
-        questions: true,
-        feedback: true,
-      },
     });
 
     return interviews;
   } catch (error) {
     console.error("Mülakatlar getirilirken bir hata oluştu:", error);
     return [];
+  }
+};
+
+export const getInterview = async (interviewId: any) => {
+  try {
+    const interview = await db.interview.findUnique({
+      where: {
+        id: interviewId,
+      },
+      include: {
+        questions: true,
+        feedback: true,
+      },
+    });
+
+    return interview;
+  } catch (error) {
+    console.error("Mülakat getirilirken bir hata oluştu:", error);
+    return null;
   }
 };
 
@@ -180,4 +195,37 @@ export const deleteInterview = async (interviewId: number) => {
     console.error("Mülakat silinirken bir hata oluştu:", error);
   }
   revalidatePath("/interviews");
+};
+
+export const saveAnswerToQuestion = async (
+  questionId: number,
+  answerText: string
+) => {
+  try {
+    await db.question.update({
+      where: {
+        id: questionId,
+      },
+      data: {
+        correctAnswer: answerText,
+      },
+    });
+  } catch (error) {
+    console.error("Cevap kaydedilirken bir hata oluştu:", error);
+  }
+};
+
+export const getAnswerToQuestion = async (questionId: number) => {
+  try {
+    const question = await db.question.findUnique({
+      where: {
+        id: questionId,
+      },
+    });
+
+    return question.correctAnswer;
+  } catch (error) {
+    console.error("Cevap getirilirken bir hata oluştu:", error);
+    return null;
+  }
 };
