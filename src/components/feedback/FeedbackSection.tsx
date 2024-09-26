@@ -17,7 +17,6 @@ import { CoreMessage } from "ai";
 import { fetchFeedbackOnAllQuestionsAndResponsesFromAI } from "../../../actions/aiActions";
 import { readStreamableValue } from "ai/rsc";
 import { formatText } from "@/helpers/formatText";
-import { LoadingSpinner } from "@/helpers/loadingSpinner";
 import { getInterviewFeedback, saveFeedback } from "../../../actions/actions";
 
 interface FeedbackSectionProps {
@@ -135,7 +134,14 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
               : ""}
           </p>
 
-          {loading && <LoadingSpinner />}
+          {loading && (
+            <div className="flex space-x-2 justify-center items-center dark:invert">
+              <span className="sr-only">Loading...</span>
+              <div className="h-3 w-3 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+              <div className="h-3 w-3 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+              <div className="h-3 w-3 bg-white rounded-full animate-bounce"></div>
+            </div>
+          )}
         </div>
         <AlertDialogFooter>
           <AlertDialogCancel>İptal</AlertDialogCancel>

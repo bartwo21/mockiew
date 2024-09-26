@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveInterviewAndInterviewQuestions } from "../../../actions/actions";
-import { LoadingSpinner } from "@/helpers/loadingSpinner";
 
 export default function InterviewPage() {
   const router = useRouter();
@@ -96,7 +95,14 @@ export default function InterviewPage() {
           )}
         </div>
 
-        {isLoading && <LoadingSpinner />}
+        {isLoading && (
+          <div className="flex space-x-2 justify-center items-center dark:invert">
+            <span className="sr-only">Loading...</span>
+            <div className="h-3 w-3 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+            <div className="h-3 w-3 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+            <div className="h-3 w-3 bg-white rounded-full animate-bounce"></div>
+          </div>
+        )}
 
         {data && (
           <div className="grid grid-cols-1 gap-4">
