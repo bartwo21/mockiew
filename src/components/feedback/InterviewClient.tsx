@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -9,6 +11,7 @@ import {
   saveAnswerToQuestion,
   getAnswerToQuestion,
 } from "../../../actions/actions";
+import { formatText } from "@/helpers/formatText";
 
 export default function InterviewClient({ question }: { question: any }) {
   const [messages, setMessages] = useState<CoreMessage[]>([]);
@@ -66,21 +69,6 @@ export default function InterviewClient({ question }: { question: any }) {
     setCorrectAnswerFetched(true);
   };
 
-  const formatText = (text: string) => {
-    // Replace backticks with <pre><code> for code block formatting
-    let formattedText = text.replace(/```(.*?)```/gs, (match, p1) => {
-      return `<pre class="bg-gray-950 bg-opacity-25 p-2 rounded-md mb-2"><code>${p1.trim()}</code></pre>`;
-    });
-
-    // Replace **bold** formatting with <strong> tags
-    formattedText = formattedText.replace(
-      /\*\*(.*?)\*\*/g,
-      "<strong>$1</strong>"
-    );
-
-    return formattedText;
-  };
-
   return (
     <Tabs defaultValue="your-answer" className="w-full">
       <TabsList className="flex justify-center">
@@ -127,7 +115,3 @@ export default function InterviewClient({ question }: { question: any }) {
     </Tabs>
   );
 }
-
-//  @TODO: feedback database'e kaydedilsin
-
-//  @TODO: eğer feedback önceden ai ile yazılmışsa, databaseden çekilecek ama yoksa ai ile yazılacak

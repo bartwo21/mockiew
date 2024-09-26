@@ -111,9 +111,6 @@ export const saveInterviewAndInterviewQuestions = async (
   const user = await getUserByEmail(userEmail);
   try {
     // 1. Mülakatı oluştur
-    console.log("user", user.id);
-    console.log("jobTitle", jobTitle);
-    console.log("questions", questions);
     const interview = await db.interview.create({
       data: {
         userId: user.id, // Mülakatı oluşturan kullanıcı
@@ -227,5 +224,48 @@ export const getAnswerToQuestion = async (questionId: number) => {
   } catch (error) {
     console.error("Cevap getirilirken bir hata oluştu:", error);
     return null;
+  }
+};
+
+export const saveFeedback = async (
+  interviewId: string,
+  feedbackText: string
+) => {
+  try {
+    if (!feedbackText) {
+      return;
+    }
+
+    await db.feedback.upsert({
+      where: {
+        interviewId: interviewId,
+      },
+      update: {
+        content: feedbackText,
+      },
+      create: {
+        interviewId: interviewId,
+        content: feedbackText,
+      },
+    });
+  } catch (error) {
+    console.error("Feedback kaydedilirken bir hata oluştu:", error);
+  }
+};
+
+export const getInterviewFeedback = async (interviewId: number) => {
+  try {
+    const feedback = await db.feedback.findUnique({
+      where: {
+        interviewId,
+      },
+    });
+    if (!feedback) {
+      return "";
+    }
+    return feedback.content;
+  } catch (error) {
+    console.error("Feedback getirilirken bir hata oluştu:", error);
+    return [];
   }
 };

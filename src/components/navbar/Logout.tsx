@@ -7,7 +7,7 @@ import { logout } from "../../../actions/actions";
 export default function Logout() {
   return (
     <div onClick={() => logout()}>
-      <Button className="mr-4 text-white" variant="outline">
+      <Button className="mr-4 text-gray-400" variant="outline">
         Çıkış Yap
       </Button>
     </div>

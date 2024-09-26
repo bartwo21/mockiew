@@ -53,7 +53,7 @@ export default function LandingPage({ searchParams }: { searchParams: any }) {
         </p>
         <Link href="/interview">
           <Button
-            className="px-8 py-4 text-lg hover:text-primary"
+            className="px-8 py-6 text-2xl hover:text-primary"
             variant="outline"
           >
             Hemen Başla

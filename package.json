@@ -13,6 +13,7 @@
     "@auth/mongodb-adapter": "^3.5.0",
     "@auth/prisma-adapter": "^2.5.0",
     "@prisma/client": "^5.19.1",
+    "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-label": "^2.1.0",
