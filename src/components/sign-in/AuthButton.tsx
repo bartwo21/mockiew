@@ -11,9 +11,20 @@ export default function AuthButton({ title }: { title: string }) {
     <Button
       disabled={pending}
       type="submit"
-      className={pending ? "opacity-50 cursor-not-allowed" : ""}
+      className={
+        pending ? "opacity-50 cursor-not-allowed text-white" : "text-white"
+      }
     >
-      {pending ? "İşleniyor..." : title}
+      {pending ? (
+        <div className="flex space-x-2 justify-center items-center dark:invert">
+          <span className="sr-only">Loading...</span>
+          <div className="h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+          <div className="h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+          <div className="h-2 w-2 bg-white rounded-full animate-bounce"></div>
+        </div>
+      ) : (
+        title
+      )}
     </Button>
   );
 }

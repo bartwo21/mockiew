@@ -23,7 +23,7 @@ const getUserByEmail = async (email: string) => {
 };
 
 export const login = async (provider: string) => {
-  await signIn(provider, { redirectTo: "/" });
+  await signIn(provider, { redirectTo: "/?successLogin=true" });
   revalidatePath("/");
 };
 
