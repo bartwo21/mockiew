@@ -2,6 +2,8 @@
 
 Mock Interview platformu, kullanıcıların dinamik mülakat sorularına cevap verebileceği ve yapay zeka tarafından oluşturulan geri bildirimler alabileceği bir projedir. **Next.js**, **MongoDB**, **Vercel AI SDK**, ve **Shadcn** teknolojileri kullanılarak geliştirilmiştir.
 
+Live: [https://mockiew.vercel.app/](https://mockiew.vercel.app/)
+
 ## Özellikler
 
 - **Dinamik Mülakat Soruları**: Vercel AI SDK kullanarak iş tanımına göre oluşturulan sorular.
