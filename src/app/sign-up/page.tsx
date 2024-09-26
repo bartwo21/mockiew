@@ -17,7 +17,7 @@ import Link from "next/link";
 
 export default function page() {
   return (
-    <div className="flex items-center justify-center mt-24">
+    <div className="flex items-center justify-center md:mt-24 mt-5 px-5">
       <div className="absolute inset-0 bg-grid-pattern -mt-16"></div>
       <div className="absolute inset-0 bg-radial-gradient"></div>
       <Card className="w-[450px] relative">

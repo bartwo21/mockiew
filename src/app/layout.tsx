@@ -4,10 +4,9 @@ import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { auth } from "@/lib/Auth";
-import Logout from "@/components/navbar/Logout";
+import Header from "@/components/navbar/header";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,40 +38,7 @@ export default async function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
         >
-          <header className="w-full py-6 bg-[#09090B] shadow-md z-10">
-            <nav className="container mx-auto flex justify-between items-center px-4">
-              <div className="flex items-center justify-center gap-10">
-                <Link href="/" className="text-2xl font-bold text-gray-100">
-                  Mockiew
-                </Link>
-                <Link href="/interviews">
-                  <Button variant="outline">Mülakatlar</Button>
-                </Link>
-              </div>
-
-              <div>
-                {!session?.user ? (
-                  <>
-                    <Link href="sign-in">
-                      <Button className="mr-4" variant="ghost">
-                        Giriş Yap
-                      </Button>
-                    </Link>
-                    <Link href="sign-up">
-                      <Button className="text-white">Kayıt Ol</Button>
-                    </Link>
-                  </>
-                ) : (
-                  <div className="flex items-center gap-x-3 text-sm">
-                    <p className="bg-zinc-700 p-[6px] px-4 rounded">
-                      {session.user.name}
-                    </p>
-                    <Logout />
-                  </div>
-                )}
-              </div>
-            </nav>
-          </header>
+          <Header session={session} />
           <main className="flex-grow">
             {children}
             <Toaster />

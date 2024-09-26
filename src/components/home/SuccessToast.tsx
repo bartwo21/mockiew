@@ -13,7 +13,7 @@ export default function SuccessToast({
   useEffect(() => {
     if (success) {
       toast.success(title, {
-        position: "top-right",
+        position: "bottom-right",
       });
     }
   }, [success, title]);

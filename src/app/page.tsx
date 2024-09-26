@@ -45,22 +45,22 @@ export default function LandingPage({ searchParams }: { searchParams: any }) {
         />
       </div>
       <section className="relative flex items-center flex-col justify-center container mx-auto text-center mb-20 z-20 mt-20">
-        <h2 className="text-7xl font-bold text-gray-100 mb-6">
+        <h2 className="md:text-7xl text-4xl font-bold text-gray-100 mb-6">
           Mülakatlara Hazır Olun
         </h2>
-        <p className="text-lg text-gray-300 mb-8">
+        <p className="md:text-lg text-xs text-gray-300 mb-8">
           Gerçek mülakat soruları ile becerilerinizi test edin ve geliştirin.
         </p>
         <Link href="/interview">
           <Button
-            className="px-8 py-6 text-2xl hover:text-primary"
+            className="px-8 py-6 md:text-2xl text-lg hover:text-primary"
             variant="outline"
           >
             Hemen Başla
           </Button>
         </Link>
       </section>
-      <section className="relative container mx-auto py-16 z-20">
+      <section className="relative container mx-auto md:py-16 py-6 z-20">
         <h3 className="text-3xl font-semibold text-gray-100 text-center mb-10">
           Özellikler
         </h3>

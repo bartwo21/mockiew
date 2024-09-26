@@ -16,7 +16,7 @@ export default function Logout() {
   return (
     <div onClick={handleLogout}>
       <Button
-        className="mr-4 text-gray-400 flex justify-center items-center"
+        className="md:mr-4 mr-0 text-gray-400 flex justify-center items-center"
         variant="outline"
         disabled={loading}
       >
