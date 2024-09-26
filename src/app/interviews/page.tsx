@@ -23,7 +23,6 @@ export default async function page() {
           <hr className="my-12 h-0.5 border-t-0 bg-neutral-800 dark:bg-white/10" />
         </div>
       </h1>
-      <InterviewsLoading />
       {interviews.length === 0 ? (
         <div className="flex items-center justify-center w-full">
           <p className="text-lg text-neutral-500 dark:text-neutral-400">
