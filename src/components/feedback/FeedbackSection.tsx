@@ -111,7 +111,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           Geri Bildirim Al
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="max-h-[500px] overflow-y-auto">
+      <AlertDialogContent className="max-h-[500px] overflow-y-auto bg-black">
         <AlertDialogHeader>
           <AlertDialogTitle className="flex justify-between">
             Geri Bildirim

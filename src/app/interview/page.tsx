@@ -55,7 +55,7 @@ export default function InterviewPage() {
   }, []);
 
   const startNewInterview = () => {
-    router.back();
+    router.refresh();
   };
 
   const handleAnswerChange = (index: number, value: string) => {
@@ -145,7 +145,9 @@ export default function InterviewPage() {
                 setAnswered(true);
               }
             }}
-            className={`${answered ? "bg-secondary text-white" : "bg-primary"}`}
+            className={`${
+              answered ? "bg-secondary text-white" : "bg-primary text-white"
+            }`}
             disabled={answered}
           >
             {answered ? "Cevaplandırıldı" : "Cevapla"}
