@@ -32,7 +32,8 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code }) => {
       <Button
         variant="outline"
         onClick={handleCopy}
-        className="absolute top-2 right-0 mr-3"
+        className="absolute top-2 mr-3"
+        style={{ right: "0" }}
         disabled={copied}
       >
         {copied ? "Kopyalandı!" : <FaCopy />}
