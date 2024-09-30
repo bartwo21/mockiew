@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import LoginGithub from "@/components/sign-in/LoginGithub";
 import React from "react";
 import {
@@ -14,8 +15,18 @@ import AuthButton from "@/components/sign-in/AuthButton";
 import { loginWithCreds } from "../../../actions/actions";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import ErrorMessage from "@/components/ui/ErrorMessage";
 
-export default function page() {
+export default function Page() {
+  const cookieStore = cookies();
+  const errorMessage = cookieStore.get("loginError")?.value;
+
+  const errorTimestamp = cookieStore.get("loginErrorTimestamp")?.value;
+
+  if (errorMessage) {
+    cookies().set("loginError", "", { maxAge: -1 });
+  }
+
   return (
     <div className="flex items-center justify-center md:mt-24 mt-5 px-5">
       <div className="absolute inset-0 bg-grid-pattern -mt-16"></div>
@@ -53,6 +64,12 @@ export default function page() {
               <div className="flex flex-col space-y-1.5">
                 <AuthButton title="Giriş Yap" />
               </div>
+              {errorMessage && (
+                <ErrorMessage
+                  key={errorTimestamp || new Date().getTime()}
+                  message={errorMessage}
+                />
+              )}
               <p className="text-xs opacity-70">
                 Hesabın yok mu?{" "}
                 <Link href="/sign-up">

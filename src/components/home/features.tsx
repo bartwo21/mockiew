@@ -18,7 +18,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
   content,
 }) => {
   return (
-    <Card>
+    <Card className="bg-zinc-950">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>

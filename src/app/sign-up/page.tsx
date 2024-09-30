@@ -14,8 +14,18 @@ import AuthButton from "@/components/sign-in/AuthButton";
 import { registerWithCreds } from "../../../actions/actions";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import ErrorMessage from "@/components/ui/ErrorMessage";
 
 export default function page() {
+  const cookieStore = cookies();
+  const errorMessage = cookieStore.get("registerError")?.value;
+
+  const errorTimestamp = cookieStore.get("registerErrorTimestamp")?.value;
+
+  if (errorMessage) {
+    cookies().set("registerError", "", { maxAge: -1 });
+  }
   return (
     <div className="flex items-center justify-center md:mt-24 mt-5 px-5">
       <div className="absolute inset-0 bg-grid-pattern -mt-16"></div>
@@ -63,6 +73,12 @@ export default function page() {
               <div className="flex flex-col space-y-1.5">
                 <AuthButton title="Kayıt Ol" />
               </div>
+              {errorMessage && (
+                <ErrorMessage
+                  key={errorTimestamp || new Date().getTime()}
+                  message={errorMessage}
+                />
+              )}
               <p className="text-xs opacity-70">
                 Hesabın var mı?{" "}
                 <Link href="/sign-in">

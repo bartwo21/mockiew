@@ -110,7 +110,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           Geri Bildirim Al
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="max-h-[500px] overflow-y-auto bg-black">
+      <AlertDialogContent className="max-h-[500px] max-w-[1500px] overflow-y-auto bg-black">
         <AlertDialogHeader>
           <AlertDialogTitle className="flex justify-between">
             Geri Bildirim
@@ -128,7 +128,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
                   <div
                     key={i}
                     className="whitespace-pre-wrap"
-                    dangerouslySetInnerHTML={{ __html: m.content }} // formatlı içerik buraya
+                    dangerouslySetInnerHTML={{ __html: m.content }}
                   />
                 ))
               : ""}

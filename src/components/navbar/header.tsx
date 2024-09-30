@@ -39,7 +39,7 @@ export default function Header({ session }: { session: any }) {
             </>
           ) : (
             <div className="flex items-center gap-x-3 text-sm">
-              <p className="bg-zinc-700 p-[6px] px-4 rounded">
+              <p className="bg-zinc-700 p-[7px] px-4 rounded">
                 {session?.user?.name}
               </p>
               <Logout />
@@ -89,7 +89,7 @@ export default function Header({ session }: { session: any }) {
 
       {isMenuOpen && (
         <div className="md:hidden px-4 flex justify-center gap-4 mt-4 items-center">
-          <p className="text-zinc-700 p-[6px] px-4 rounded w-full text-center">
+          <p className="text-zinc-700 p-[7px] px-4 rounded w-full text-center">
             {session?.user?.name}
           </p>
           <Link href="/interviews" className="w-24">

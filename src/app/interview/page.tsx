@@ -12,11 +12,11 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { saveInterviewAndInterviewQuestions } from "../../../actions/actions";
+import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
 export default function InterviewPage() {
-  const router = useRouter();
   const [userEmail, setUserEmail] = useState(null);
   const [jobTitleState, setJobTitleState] = useState<string | null>(null);
   const [answered, setAnswered] = useState(false);
@@ -54,7 +54,7 @@ export default function InterviewPage() {
   }, []);
 
   const startNewInterview = () => {
-    router.refresh();
+    window.location.reload();
   };
 
   const handleAnswerChange = (index: number, value: string) => {
@@ -65,47 +65,68 @@ export default function InterviewPage() {
 
   return (
     <div className="flex flex-col items-center justify-center mt-16">
-      <div className="w-2/3 flex flex-col gap-16">
+      <div className="absolute top-0 z-[-2] w-full h-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_60%_-35%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      <div className="w-2/3 flex flex-col">
         <div className="grid w-full gap-2">
-          {!interviewStarted && (
+          {!interviewStarted ? (
             <>
-              <h1 className="text-3xl text-center my-2 mb-7 text-gray-200">
-                Hangi alanla ilgili bir mülakat yapmak istiyorsunuz?
-              </h1>
-              <form onSubmit={handleFormSubmit}>
-                <Textarea
-                  placeholder="Örn: Yazılım, tasarım, pazarlama"
-                  value={input}
-                  onChange={handleInputChange}
+              <form
+                onSubmit={handleFormSubmit}
+                className="flex items-center justify-center md:flex-row flex-col md:gap-8 gap-3"
+              >
+                <Image
+                  src="/startInterview-removebg-preview.png"
+                  width={300}
+                  height={300}
+                  alt="interview"
+                  className="filter drop-shadow-lg rounded-lg"
                 />
-                <Button className="text-white mt-4" type="submit">
-                  Gönder
-                </Button>
+                <div className="">
+                  <h1 className="text-3xl text-center my-2 mb-7 text-gray-200">
+                    Hangi alanla ilgili bir mülakat yapmak istiyorsunuz?
+                  </h1>
+                  <div className="flex gap-4">
+                    <Input
+                      placeholder="Örn: Yazılım, tasarım, pazarlama"
+                      value={input}
+                      onChange={handleInputChange}
+                    />
+                    <Button className="text-white h-full" type="submit">
+                      Gönder
+                    </Button>
+                  </div>
+                </div>
               </form>
             </>
-          )}
-
-          {interviewStarted && (
-            <Button
-              className="text-white mt-4 bg-secondary"
-              onClick={startNewInterview}
-            >
-              Yeni mülakat için tıklayınız
-            </Button>
+          ) : (
+            <div className="text-right">
+              <Button
+                className="text-white mt-4 text-xs bg-secondary"
+                onClick={startNewInterview}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <div className="flex space-x-2 justify-center items-center pr-2">
+                    <span className="sr-only">Loading...</span>
+                    <div className="h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div className="h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                    <div className="h-2 w-2 bg-white rounded-full animate-bounce"></div>
+                  </div>
+                ) : (
+                  "Yeni mülakat için tıklayınız"
+                )}
+              </Button>
+            </div>
           )}
         </div>
-
-        {isLoading && (
-          <div className="flex space-x-2 justify-center items-center dark:invert">
-            <span className="sr-only">Loading...</span>
-            <div className="h-3 w-3 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-            <div className="h-3 w-3 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-            <div className="h-3 w-3 bg-white rounded-full animate-bounce"></div>
-          </div>
-        )}
-
         {data && (
           <div className="grid grid-cols-1 gap-4">
+            <h3 className="text-2xl text-center text-primary">
+              {`${
+                (jobTitleState ?? "").charAt(0).toUpperCase() +
+                  (jobTitleState ?? "").slice(1) || "Belirtilmedi"
+              }`}
+            </h3>
             {questions.slice(0, 5).map((question, index) => {
               let title = question.trim();
 
@@ -151,7 +172,7 @@ export default function InterviewPage() {
                 setAnswered(true);
               }
             }}
-            className={`${
+            className={`mt-5 ${
               answered ? "bg-secondary text-white" : "bg-primary text-white"
             }`}
             disabled={answered}

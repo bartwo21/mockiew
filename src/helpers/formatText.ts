@@ -1,6 +1,6 @@
 export const formatText = (text: string) => {
   let formattedText = text.replace(/```(.*?)```/gs, (match, p1) => {
-    return `<pre class="bg-gray-950 bg-opacity-25 p-2 rounded-md mb-2"><code>${p1.trim()}</code></pre>`;
+    return `<pre style="background-color: rgba(17, 24, 39, 0.70); padding: 1.5rem; border-radius: 0.375rem; margin-bottom: 0.5rem;"><code>${p1.trim()}</code></pre>`;
   });
 
   formattedText = formattedText.replace(

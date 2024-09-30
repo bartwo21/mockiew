@@ -7,6 +7,7 @@ import { saltAndHashPassword } from "@/lib/helper";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 const getUserByEmail = async (email: string) => {
   try {
@@ -44,12 +45,26 @@ export const loginWithCreds = async (formData: FormData) => {
     await signIn("credentials", rawFormData);
   } catch (error) {
     if (error instanceof AuthError) {
-      switch (error.message) {
-        case "CredentialsSignin":
-          return { error: "Kullanıcı adı veya şifre hatalı." };
+      let errorMessage;
+      switch (error.cause?.err?.message) {
+        case "Password does not match":
+          errorMessage = "Kullanıcı adı veya şifre hatalı.";
+          break;
+        case "Bu email ile kayıtlı kullanıcı bulunamadı.":
+          errorMessage =
+            "Bu email adresi ile kayıtlı bir kullanıcı bulunamadı.";
+          break;
         default:
-          return { error: "Bir hata oluştu." };
+          errorMessage = "Bir hata oluştu.";
+          break;
       }
+      // Hata mesajını cookie olarak ayarlıyoruz
+      cookies().set("loginError", errorMessage, { maxAge: 5 });
+      cookies().set("loginErrorTimestamp", Date.now().toString(), {
+        maxAge: 5,
+      });
+      // redirect("/sign-in");
+      return;
     }
 
     throw error;
@@ -69,11 +84,20 @@ export const registerWithCreds = async (formData: FormData) => {
   const existingUser = await getUserByEmail(formData.get("email") as string);
 
   if (existingUser) {
-    return { error: "Bu email ile zaten kayıtlı bir kullanıcı var." };
+    cookies().set(
+      "registerError",
+      "Bu email adresi ile kayıtlı bir kullanıcı zaten var.",
+      {
+        maxAge: 5,
+      }
+    );
+    cookies().set("registerErrorTimestamp", Date.now().toString(), {
+      maxAge: 5,
+    });
+    return;
   }
 
   try {
-    // Yeni kullanıcı oluşturuluyor.
     const hashedPassword = saltAndHashPassword(rawFormData.password);
 
     await db.user.create({

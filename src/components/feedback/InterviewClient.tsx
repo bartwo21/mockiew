@@ -74,7 +74,7 @@ export default function InterviewClient({ question }: { question: any }) {
       <TabsList className="flex justify-center">
         <TabsTrigger
           value="your-answer"
-          className="w-1/2 text-center data-[state=active]:bg-black"
+          className="w-1/2 text-center data-[state=active]:bg-zinc-950"
         >
           Senin Cevabın
         </TabsTrigger>
