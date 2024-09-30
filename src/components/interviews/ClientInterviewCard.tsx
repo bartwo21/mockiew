@@ -71,12 +71,12 @@ export default function ClientInterviewCard({ interview }: any) {
                 disabled={loading}
               >
                 {loading ? (
-                  <svg
-                    className="w-4 h-4 mr-1 animate-spin"
-                    viewBox="0 0 64 64"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  ></svg>
+                  <div className="flex justify-center items-center dark:invert pr-2 pl-1">
+                    <span className="sr-only">Loading...</span>
+                    <div className="h-1 w-1 ml-1 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div className="h-1 w-1 ml-1 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                    <div className="h-1 w-1 ml-1 bg-white rounded-full animate-bounce"></div>
+                  </div>
                 ) : (
                   <>
                     <svg
