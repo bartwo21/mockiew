@@ -25,26 +25,26 @@ export default function LandingPage({ searchParams }: { searchParams: any }) {
       <div className="absolute inset-0 z-20 hidden md:block">
         <CustomAvatar
           src="/avatar1.jpg"
-          positionStyles="top-10 left-60"
+          positionStyles="top-10 left-[450px]"
           iconRotation="left-20 -bottom-6 rotate-45"
         />
         <CustomAvatar
           src="/avatar2.jpg"
-          positionStyles="top-[380px] left-72"
+          positionStyles="top-[580px] left-[370px]"
           iconRotation="left-20 -top-6 -rotate-45"
         />
         <CustomAvatar
           src="/avatar3.jpg"
-          positionStyles="top-[420px] right-80"
+          positionStyles="top-[620px] right-[450px]"
           iconRotation="right-20 -top-3 rotate-[215deg]"
         />
         <CustomAvatar
           src="/avatar4.jpg"
-          positionStyles="top-16 right-64"
+          positionStyles="top-16 right-[490px]"
           iconRotation="right-16 -bottom-6 rotate-[135deg]"
         />
       </div>
-      <section className="relative flex items-center flex-col justify-center container mx-auto text-center mb-20 z-20 md:mt-32 mt-10">
+      <section className="relative flex items-center flex-col justify-center container mx-auto text-center mb-20 z-20 md:mt-32 mt-10 h-[40vh]">
         <h2 className="md:text-7xl text-4xl font-bold text-gray-100 mb-6">
           Mülakatlara Hazır Olun
         </h2>
