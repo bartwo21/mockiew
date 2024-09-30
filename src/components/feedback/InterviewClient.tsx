@@ -97,19 +97,13 @@ export default function InterviewClient({ question }: { question: any }) {
       <TabsContent value="correct-answer" className="p-4 border-t">
         <h3 className="text-xl font-semibold mb-2">Doğru Cevap</h3>
         <div className="opacity-70 text-sm">
-          {messages.map((m, i) => {
-            return (
-              <div
-                key={i}
-                className="whitespace-pre-wrap"
-                dangerouslySetInnerHTML={{
-                  __html: formatText(
-                    typeof m.content === "string" ? m.content : ""
-                  ),
-                }}
-              />
-            );
-          })}
+          <div className="opacity-70 text-sm">
+            {messages.map((m, i) => (
+              <div key={i} className="whitespace-pre-wrap">
+                {formatText(typeof m.content === "string" ? m.content : "")}
+              </div>
+            ))}
+          </div>
         </div>
       </TabsContent>
     </Tabs>

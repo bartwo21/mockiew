@@ -84,7 +84,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
         ...newMessages,
         {
           role: "assistant",
-          content: formatText(content as string),
+          content: content as string,
         },
       ]);
       finalAnswer = content as string;
@@ -118,21 +118,19 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           </AlertDialogTitle>
           <AlertDialogDescription>
             Sorular ve Cevapların ile ilgili geri bildirim alıyorsunuz.
-            <hr className="mt-4" />
           </AlertDialogDescription>
+          <hr className="mt-4" />
         </AlertDialogHeader>
         <div className="feedback">
-          <p className="opacity-70 text-sm mb-4">
+          <div className="opacity-70 text-sm mb-4">
             {feedback
               ? messages.map((m, i) => (
-                  <div
-                    key={i}
-                    className="whitespace-pre-wrap"
-                    dangerouslySetInnerHTML={{ __html: m.content }}
-                  />
+                  <div key={i} className="whitespace-pre-wrap">
+                    {formatText(m.content as any)}
+                  </div>
                 ))
               : ""}
-          </p>
+          </div>
 
           {loading && (
             <div className="flex space-x-2 justify-center items-center dark:invert">
