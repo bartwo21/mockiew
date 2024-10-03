@@ -31,7 +31,7 @@ export default function page() {
     <div className="flex items-center justify-center md:mt-24 mt-5 px-5">
       <div className="absolute inset-0 bg-grid-pattern -mt-16"></div>
       <div className="absolute inset-0 bg-radial-gradient"></div>
-      <div className="z-30 flex md:flex-row flex-col gap-20 justify-center items-center bg-zinc-950 p-5 md:p-28 md:px-36 rounded-lg border border-zinc-800">
+      <div className="z-30 flex md:flex-row flex-col gap-20 justify-center items-center bg-zinc-950 p-5 md:p-10 rounded-lg border border-zinc-800">
         <Image
           src="/register.png"
           width={250}
