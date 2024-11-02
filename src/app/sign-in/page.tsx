@@ -39,9 +39,9 @@ export default function Page() {
           height={350}
           alt="login"
           unoptimized
-          className="w-[200px] h-[200px] md:w-[350px] md:h-[350px] object-cover rounded-lg"
+          className="w-[200px] h-[200px] md:w-[350px] md:h-[350px] md:block hidden object-cover rounded-lg"
         />
-        <Card className="bg-transparent relative border-zinc-900 shadow-lg lg:w-[400px] w-full">
+        <Card className="bg-transparent relative border-none shadow-sm shadow-zinc-900 lg:w-[400px] w-full">
           <CardHeader>
             <CardTitle>Giriş Yap</CardTitle>
             <CardDescription>

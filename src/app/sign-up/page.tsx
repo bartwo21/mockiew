@@ -38,9 +38,9 @@ export default function page() {
           height={350}
           alt="login"
           unoptimized
-          className="w-[200px] h-[200px] md:w-[450px] md:h-[450px] object-cover rounded-lg"
+          className="w-[200px] h-[200px] md:w-[450px] md:h-[450px] md:block hidden object-cover rounded-lg"
         />
-        <Card className="relative bg-transparent border-zinc-900 shadow-lg lg:w-[400px] w-full">
+        <Card className="bg-transparent relative border-none shadow-sm shadow-zinc-900 lg:w-[400px] w-full">
           <CardHeader>
             <CardTitle>Kayıt Ol</CardTitle>
             <CardDescription>
