@@ -6,7 +6,6 @@ import { db } from "@/lib/db";
 import { saltAndHashPassword } from "@/lib/helper";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 const getUserByEmail = async (email: string) => {
@@ -151,13 +150,12 @@ export const saveInterviewAndInterviewQuestions = async (
         response: q.answerText, // Cevap metni
       })),
     });
-    // return { success: true, interview, savedQuestions };
+    revalidatePath(`/interviews/feedback/${interview.id}`);
+    return { success: true, interviewId: interview.id };
   } catch (error) {
     console.error("Mülakat ve sorular kaydedilirken bir hata oluştu:", error);
     return { success: false, error: (error as Error).message };
   }
-  revalidatePath("/interviews");
-  redirect("/interviews");
 };
 
 export const getAllInterviews = async (userEmail: string) => {
@@ -260,6 +258,7 @@ export const saveFeedback = async (
       return;
     }
 
+    // Feedback'i kaydet
     await db.feedback.upsert({
       where: {
         interviewId: interviewId,
@@ -272,9 +271,21 @@ export const saveFeedback = async (
         content: feedbackText,
       },
     });
+
+    // Interview'un statusunu güncelle
+    await db.interview.update({
+      where: {
+        id: interviewId,
+      },
+      data: {
+        status: "done",
+      },
+    });
   } catch (error) {
     console.error("Feedback kaydedilirken bir hata oluştu:", error);
   }
+
+  revalidatePath("/interviews");
 };
 
 export const getInterviewFeedback = async (interviewId: number) => {

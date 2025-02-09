@@ -2,19 +2,15 @@
 "use client";
 
 import { useChat } from "ai/react";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { saveInterviewAndInterviewQuestions } from "../../../actions/actions";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function InterviewPage() {
   const [userEmail, setUserEmail] = useState(null);
@@ -24,6 +20,8 @@ export default function InterviewPage() {
     useChat();
   const [interviewStarted, setInterviewStarted] = useState(false);
   const [answers, setAnswers] = useState<string[]>([]);
+
+  const router = useRouter();
 
   const assistantMessages = messages.filter(
     (message) => message.role === "assistant"
@@ -38,6 +36,10 @@ export default function InterviewPage() {
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (input.trim() === "") {
+      toast.error("Lütfen bir alan giriniz");
+      return;
+    }
     setJobTitleState(input);
     handleSubmit(e);
     setInterviewStarted(true);
@@ -131,17 +133,15 @@ export default function InterviewPage() {
               let title = question.trim();
 
               return (
-                <Card key={index} className="w-full bg-transparent">
-                  <CardHeader>
-                    <CardTitle>{`Soru ${index + 1}`}</CardTitle>
-                    <hr className="my-12 h-0.5 border-t-0 bg-neutral-800 dark:bg-white/10" />
-                  </CardHeader>
-                  <CardContent>
+                <Card key={index} className="w-full bg-transparent flex">
+                  <CardContent className="p-6 w-1/3">
+                    <p className="text-center">{`Soru ${index + 1}`}</p>
+                    <hr className="my-1 h-0.5 border-t-0 bg-neutral-800 dark:bg-white/10" />
                     <p className="font-bold">{title}</p>
                   </CardContent>
-                  <CardFooter className="flex flex-col">
+                  <CardFooter className="flex flex-col w-2/3 p-6">
                     <Textarea
-                      className="mt-4"
+                      className="my-auto resize-none w-full"
                       placeholder="Cevabınızı buraya yazın"
                       value={answers[index] || ""}
                       onChange={(e) =>
@@ -156,9 +156,9 @@ export default function InterviewPage() {
         )}
         {data && userEmail && (
           <Button
-            onClick={() => {
+            onClick={async () => {
               try {
-                saveInterviewAndInterviewQuestions(
+                const result = await saveInterviewAndInterviewQuestions(
                   userEmail,
                   jobTitleState || "",
                   questions.map((question, index) => ({
@@ -166,6 +166,9 @@ export default function InterviewPage() {
                     answerText: answers[index]?.trim() || "",
                   }))
                 );
+                if (result.success == true) {
+                  router.push(`/interviews/feedback/${result.interviewId}`);
+                }
               } catch (error) {
                 console.error(error);
               } finally {

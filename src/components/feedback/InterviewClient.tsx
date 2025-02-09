@@ -41,10 +41,7 @@ export default function InterviewClient({ question }: { question: any }) {
 
     if (correctAnswerFetched) return;
 
-    const newMessages: CoreMessage[] = [
-      ...messages,
-      { content: question.questionText, role: "user" },
-    ];
+    const newMessages: CoreMessage[] = [...messages];
 
     setMessages(newMessages);
 
@@ -71,21 +68,24 @@ export default function InterviewClient({ question }: { question: any }) {
 
   return (
     <Tabs defaultValue="your-answer" className="w-full">
-      <TabsList className="flex justify-center">
-        <TabsTrigger
-          value="your-answer"
-          className="w-1/2 text-center data-[state=active]:bg-zinc-950"
-        >
-          Senin Cevabın
-        </TabsTrigger>
-        <TabsTrigger
-          value="correct-answer"
-          className="w-1/2 text-center data-[state=active]:bg-black"
-          onClick={(e) => handleAnswerQuestion(e)}
-        >
-          Doğru Cevap
-        </TabsTrigger>
-      </TabsList>
+      <div className="flex justify-between items-center pt-[1.5rem] sm:flex-row flex-col">
+        <p className="mr-3">Soru: {question.questionText}</p>
+        <TabsList className="flex justify-center rounded-sm lg:w-[30%] sm:my-0 my-3 ml-auto lg:flex-row flex-col h-full w-[100%]">
+          <TabsTrigger
+            value="your-answer"
+            className="text-center data-[state=active]:bg-zinc-950 rounded-sm w-full"
+          >
+            Senin Cevabın
+          </TabsTrigger>
+          <TabsTrigger
+            value="correct-answer"
+            className="text-center data-[state=active]:bg-black w-full"
+            onClick={(e) => handleAnswerQuestion(e)}
+          >
+            Doğru Cevap
+          </TabsTrigger>
+        </TabsList>
+      </div>
 
       <TabsContent value="your-answer" className="p-4 border-t">
         <h3 className="text-xl font-semibold mb-2">Senin Cevabın</h3>

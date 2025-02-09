@@ -107,7 +107,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
     <AlertDialog open={open} onOpenChange={handleOpenChange}>
       <AlertDialogTrigger asChild>
         <Button variant="default" className="text-white">
-          Geri Bildirim Al
+          Cevapların İçin Geri Bilgirim Al
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="max-h-[500px] max-w-[1500px] overflow-y-auto bg-black">

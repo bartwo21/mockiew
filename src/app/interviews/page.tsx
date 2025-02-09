@@ -4,9 +4,11 @@ import { auth } from "@/lib/Auth";
 import { getAllInterviews } from "../../../actions/actions";
 import InterviewsLoading from "@/components/interviews/loading";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
-const ClientInterviewCard = React.lazy(
-  () => import("@/components/interviews/ClientInterviewCard")
+const ClientInterviewCard = dynamic(
+  () => import("@/components/interviews/ClientInterviewCard"),
+  { ssr: false }
 );
 
 export default async function page() {

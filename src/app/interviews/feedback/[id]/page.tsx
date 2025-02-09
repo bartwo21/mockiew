@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { getInterview } from "../../../../../actions/actions";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import InterviewClient from "@/components/feedback/InterviewClient";
 import FeedbackSection from "@/components/feedback/FeedbackSection";
 
@@ -31,9 +31,6 @@ export default async function InterviewPage({
             key={question.id}
             className="shadow-md bg-transparent shadow-slate-950 mb-8"
           >
-            <CardHeader>
-              <CardTitle>Soru: {question.questionText}</CardTitle>
-            </CardHeader>
             <CardContent>
               <InterviewClient question={question} />
             </CardContent>

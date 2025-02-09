@@ -4,13 +4,14 @@ import { CoreMessage, streamText } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { createStreamableValue } from "ai/rsc";
 
-export async function fetchCorrectAnswerFromAI(messages: CoreMessage[]) {
+export async function fetchCorrectAnswerFromAI(message: CoreMessage[]) {
+  console.log(message);
   const result = await streamText({
     model: openai("gpt-4o-mini"),
     messages: [
       {
         role: "user",
-        content: `Bu soruya kısa bir şekilde doğru cevap ver: ${messages}`,
+        content: `Sen bir mülakat soru cevaplama asistanısın. Cevabı direkt olarak yaz, soruyu tekrarlama. Bu soruya kısa bir şekilde doğru cevap ver: ${message}. Eğer soru kod gerektiriyorsa, pratik bir örnek ver`,
       },
     ],
   });
