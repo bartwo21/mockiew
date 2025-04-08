@@ -2,7 +2,7 @@ import React from "react";
 
 export default function loading() {
   return (
-    <div className="grid w-full place-items-center overflow-x-scroll rounded-lg lg:overflow-visible h-[70vh]">
+    <div className="grid w-full place-items-center rounded-lg lg:overflow-visible h-[70vh]">
       <svg
         className="text-gray-400 animate-spin"
         viewBox="0 0 64 64"

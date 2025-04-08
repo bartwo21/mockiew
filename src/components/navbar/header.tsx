@@ -115,7 +115,7 @@ export default function Header({ session }: { session: any }) {
 
       {isMenuOpen && (
         <div className="md:hidden px-4 flex justify-center gap-4 mt-4 items-center">
-          <p className="text-zinc-700 p-[7px] px-4 rounded w-full text-center">
+          <p className="text-zinc-700 p-[7px] lg:px-4 px-0 rounded w-full text-left lg:text-center">
             {session?.user?.name}
           </p>
           <div
