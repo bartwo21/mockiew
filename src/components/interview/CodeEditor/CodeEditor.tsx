@@ -48,26 +48,27 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   };
 
   return (
-    <div className="flex gap-4">
-      <Editor
-        height="75vh"
-        width="50%"
-        theme="vs-dark"
-        defaultLanguage={language.toLowerCase()}
-        defaultValue={CODE_SNIPPETS[language as keyof typeof CODE_SNIPPETS]}
-        language={language.toLowerCase()}
-        onMount={onMount}
-        value={value}
-        onChange={handleEditorChange}
-        options={{
-          fontSize: 14,
-          minimap: { enabled: true },
-          scrollBeyondLastLine: false,
-          automaticLayout: true,
-          wordWrap: "on",
-        }}
-      />
-      <div className="output-box w-1/2">
+    <div className="flex gap-4 flex-col lg:flex-row">
+      <div className="w-full lg:w-1/2">
+        <Editor
+          height="75vh"
+          theme="vs-dark"
+          defaultLanguage={language.toLowerCase()}
+          defaultValue={CODE_SNIPPETS[language as keyof typeof CODE_SNIPPETS]}
+          language={language.toLowerCase()}
+          onMount={onMount}
+          value={value}
+          onChange={handleEditorChange}
+          options={{
+            fontSize: 14,
+            minimap: { enabled: true },
+            scrollBeyondLastLine: false,
+            automaticLayout: true,
+            wordWrap: "on",
+          }}
+        />
+      </div>
+      <div className="output-box w-full lg:w-1/2">
         <Output editorRef={editorRef} language={language} />
       </div>
     </div>

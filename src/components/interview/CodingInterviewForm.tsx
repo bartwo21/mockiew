@@ -171,8 +171,8 @@ export default function CodingInterviewForm({
             </CardContent>
           </Card>
 
-          <div className="border border-gray-900 rounded-lg overflow-hidden p-6 relative">
-            <div className="flex justify-between items-center">
+          <div className="border border-gray-900 rounded-lg overflow-hidden p-6 relative ">
+            <div className="flex justify-between items-center sm:flex-row flex-col">
               <h3 className="text-lg text-primary mb-4">Kod Editörü</h3>
               <div className="flex gap-4 mb-6 w-[175px]">
                 <Select

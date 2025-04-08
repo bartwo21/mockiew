@@ -21,8 +21,8 @@ export default async function InterviewPage({
     <div className="mx-auto w-full">
       <div className="absolute top-0 z-[-2] w-full h-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-35%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
       <div className="md:w-2/3  w-11/12 py-10 mx-auto">
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-2xl mb-5gap-2">
+        <div className="flex items-center justify-between mb-5 lg:flex-row lg:text-left text-center flex-col">
+          <h2 className="text-2xl mb-5 gap-2">
             Mülakat Konusu:{" "}
             <span className="text-primary">
               {jobTitle.charAt(0).toUpperCase() + jobTitle.slice(1)}

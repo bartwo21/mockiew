@@ -94,9 +94,9 @@ export default function InterviewPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center mt-16">
+    <div className="flex flex-col items-center justify-center lg:mt-16 mt-4">
       <BackgroundGradient />
-      <div className="w-2/3 flex flex-col">
+      <div className="w-full lg:w-2/3 flex flex-col px-4">
         <div className="grid w-full gap-2">
           {!interviewStarted ? (
             jobTitleState == null ? (

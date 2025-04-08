@@ -123,7 +123,7 @@ export default function InterviewClient({
 
       const copyButton = document.createElement("button");
       copyButton.className =
-        "absolute top-0 right-0 p-3 bg-gray-800/55 hover:bg-gray-800/70 rounded-md transition-colors";
+        "absolute top-0 right-0 p-3 bg-gray-800/55 hover:bg-gray-800/70 rounded-md transition-colors hidden lg:block";
       copyButton.title = "Kopyala";
       copyButton.innerHTML =
         '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>';
@@ -169,7 +169,7 @@ export default function InterviewClient({
         <div className="mr-3 w-full">
           <div className="flex justify-between items-center border-b border-neutral-800 pb-2">
             <h3 className="text-lg font-semibold mt-auto">Soru</h3>
-            <TabsList className="flex justify-center rounded-sm sm:my-0 my-3 ml-auto lg:flex-row flex-col h-full w-[100%] lg:w-[30%] bg-neutral-900">
+            <TabsList className="flex justify-center rounded-sm sm:my-0 my-3 ml-auto lg:flex-row flex-col h-full w-[50%] lg:w-[30%] bg-neutral-900">
               <TabsTrigger
                 value="your-answer"
                 className="text-center data-[state=active]:bg-zinc-950 rounded-sm w-full"

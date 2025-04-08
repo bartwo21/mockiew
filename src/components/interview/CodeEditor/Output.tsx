@@ -43,7 +43,7 @@ export const Output: React.FC<OutputProps> = ({ editorRef, language }) => {
   return (
     <div className="flex flex-col gap-4">
       <Button
-        className="text-white absolute top-[25px] right-[210px] w-[125px]"
+        className="text-white lg:absolute top-[25px] lg:right-[18%] right-[5%] w-[125px] static"
         onClick={runCode}
         disabled={isLoading}
       >
