@@ -1,41 +1,67 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Logout from "@/components/navbar/Logout";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Header({ session }: { session: any }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname]);
+
+  const handleNavigation = (href: string) => {
+    if (pathname === href) {
+      router.refresh();
+    } else {
+      router.push(href);
+    }
+  };
+
   return (
     <header className="w-full py-6 bg-[#09090B] shadow-md z-10">
       <nav className="container mx-auto flex justify-between items-center px-4">
-        <div className="flex items-center gap-16 justify-center">
-          <Link href="/" className="text-2xl font-bold text-gray-100">
-            Mockiew
-          </Link>
-          <Link href="/interviews" className="hidden md:flex">
-            <Button variant="outline">Mülakatlar</Button>
-          </Link>
+        <div className="flex items-center gap-8 justify-center">
+          <div onClick={() => handleNavigation("/")} className="cursor-pointer">
+            <span className="text-2xl font-bold text-gray-100">Mockiew</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <div
+              onClick={() => handleNavigation("/interviews")}
+              className="hidden md:block cursor-pointer"
+            >
+              <Button variant="outline">Mülakatlar</Button>
+            </div>
+            <div
+              onClick={() => handleNavigation("/interview")}
+              className="hidden md:block cursor-pointer"
+            >
+              <Button variant="outline">Mülakat Oluştur</Button>
+            </div>
+          </div>
         </div>
 
         <div className="hidden md:flex">
           {!session?.user ? (
             <>
-              <Link href="/sign-in">
+              <div
+                onClick={() => handleNavigation("/sign-in")}
+                className="cursor-pointer"
+              >
                 <Button className="md:mr-4 mr-0" variant="ghost">
                   Giriş Yap
                 </Button>
-              </Link>
-              <Link href="/sign-up">
+              </div>
+              <div
+                onClick={() => handleNavigation("/sign-up")}
+                className="cursor-pointer"
+              >
                 <Button className="text-white">Kayıt Ol</Button>
-              </Link>
+              </div>
             </>
           ) : (
             <div className="flex items-center gap-x-3 text-sm">
@@ -92,21 +118,30 @@ export default function Header({ session }: { session: any }) {
           <p className="text-zinc-700 p-[7px] px-4 rounded w-full text-center">
             {session?.user?.name}
           </p>
-          <Link href="/interviews" className="w-24">
+          <div
+            onClick={() => handleNavigation("/interviews")}
+            className="w-24 cursor-pointer"
+          >
             <Button variant="outline" className="w-full">
               Mülakatlar
             </Button>
-          </Link>
+          </div>
           {!session?.user ? (
             <>
-              <Link href="/sign-in" className="w-24">
+              <div
+                onClick={() => handleNavigation("/sign-in")}
+                className="w-24 cursor-pointer"
+              >
                 <Button className="w-full" variant="ghost">
                   Giriş Yap
                 </Button>
-              </Link>
-              <Link href="/sign-up" className="w-24">
+              </div>
+              <div
+                onClick={() => handleNavigation("/sign-up")}
+                className="w-24 cursor-pointer"
+              >
                 <Button className="w-full text-white">Kayıt Ol</Button>
-              </Link>
+              </div>
             </>
           ) : (
             <div>

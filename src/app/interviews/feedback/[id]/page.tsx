@@ -7,11 +7,15 @@ import FeedbackSection from "@/components/feedback/FeedbackSection";
 
 export default async function InterviewPage({
   params: { id },
+  searchParams,
 }: {
   params: { id: any };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const interview = await getInterview(id);
   const { jobTitle, questions } = interview;
+
+  const lang = (searchParams.lang as string) || undefined;
 
   return (
     <div className="mx-auto w-full">
@@ -32,7 +36,7 @@ export default async function InterviewPage({
             className="shadow-md bg-transparent shadow-slate-950 mb-8"
           >
             <CardContent>
-              <InterviewClient question={question} />
+              <InterviewClient question={question} lang={lang} />
             </CardContent>
           </Card>
         ))}

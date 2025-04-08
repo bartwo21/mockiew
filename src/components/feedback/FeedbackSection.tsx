@@ -16,8 +16,8 @@ import {
 import { CoreMessage } from "ai";
 import { fetchFeedbackOnAllQuestionsAndResponsesFromAI } from "../../../actions/aiActions";
 import { readStreamableValue } from "ai/rsc";
-import { formatText } from "@/helpers/formatText";
 import { getInterviewFeedback, saveFeedback } from "../../../actions/actions";
+import { formatText } from "@/lib/helper";
 
 interface FeedbackSectionProps {
   questions: any[];
@@ -52,7 +52,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
 
   const fetchFeedback = async () => {
     if (feedback) {
-      return; // Eğer geri bildirim veritabanında varsa, AI'den almayız
+      return;
     }
     if (!Array.isArray(questions)) {
       console.error("questions is not an array");
@@ -61,39 +61,51 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
 
     setLoading(true);
 
+    const questionsAndResponses = questions
+      .map((q: any) => q.questionText + " " + (q.response || ""))
+      .join(" ");
+
     const newMessages: CoreMessage[] = [
       ...messages,
       {
-        content: questions
-          .map((q: any) => q.questionText + " " + (q.response || ""))
-          .join(" "),
+        content: questionsAndResponses,
         role: "user",
       },
     ];
 
     setMessages(newMessages);
 
-    const result = await fetchFeedbackOnAllQuestionsAndResponsesFromAI(
-      newMessages
-    );
+    try {
+      const result = await fetchFeedbackOnAllQuestionsAndResponsesFromAI(
+        newMessages
+      );
 
-    let finalAnswer = "";
+      let finalAnswer = "";
+      let updatedMessages = [...newMessages];
 
-    for await (const content of readStreamableValue(result)) {
-      setMessages([
-        ...newMessages,
-        {
-          role: "assistant",
-          content: content as string,
-        },
-      ]);
-      finalAnswer = content as string;
+      for await (const content of readStreamableValue(result)) {
+        finalAnswer = content as string;
+        updatedMessages = [
+          ...newMessages,
+          {
+            role: "assistant",
+            content: finalAnswer,
+          },
+        ];
+      }
+
+      setMessages(updatedMessages);
+
+      const formattedFeedback = formatText(finalAnswer, { asHtml: true });
+
+      await saveFeedback(interviewId, formattedFeedback);
+
+      setFeedback(true);
+    } catch (error) {
+      console.error("Feedback alınırken bir hata oluştu:", error);
+    } finally {
+      setLoading(false);
     }
-
-    await saveFeedback(interviewId, finalAnswer);
-
-    setFeedback(true);
-    setLoading(false);
   };
 
   const handleOpenChange = (isOpen: boolean) => {
@@ -125,9 +137,16 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           <div className="opacity-70 text-sm mb-4">
             {feedback
               ? messages.map((m, i) => (
-                  <div key={i} className="whitespace-pre-wrap">
-                    {formatText(m.content as any)}
-                  </div>
+                  <div
+                    key={i}
+                    className="whitespace-pre-wrap"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        m.role === "assistant"
+                          ? formatText(m.content as string, { asHtml: true })
+                          : "",
+                    }}
+                  />
                 ))
               : ""}
           </div>

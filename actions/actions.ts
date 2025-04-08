@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
+import { LANGUAGE_VERSIONS } from "@/components/interview/CodeEditor/constants";
 import { signOut, signIn } from "@/lib/Auth";
 import { db } from "@/lib/db";
 import { saltAndHashPassword } from "@/lib/helper";
@@ -129,25 +130,23 @@ export const registerWithCreds = async (formData: FormData) => {
 export const saveInterviewAndInterviewQuestions = async (
   userEmail: string,
   jobTitle: string,
-  questions: { questionText: string; answerText: string }[] // Hem sorular hem de cevaplar
+  questions: { questionText: string; answerText: string }[]
 ) => {
   const user = await getUserByEmail(userEmail);
   try {
-    // 1. Mülakatı oluştur
     const interview = await db.interview.create({
       data: {
-        userId: user.id, // Mülakatı oluşturan kullanıcı
-        jobTitle: jobTitle, // Mülakatın iş tanımı
-        status: "pending", // Mülakatın başlangıç durumu
+        userId: user.id,
+        jobTitle: jobTitle,
+        status: "pending",
       },
     });
 
-    // 2. Soruları ve cevapları kaydet
     await db.question.createMany({
       data: questions.map((q) => ({
-        interviewId: interview.id, // Sorular ilgili mülakat ile ilişkilendiriliyor
-        questionText: q.questionText, // Soru metni
-        response: q.answerText, // Cevap metni
+        interviewId: interview.id,
+        questionText: q.questionText,
+        response: q.answerText,
       })),
     });
     revalidatePath(`/interviews/feedback/${interview.id}`);
@@ -284,8 +283,6 @@ export const saveFeedback = async (
   } catch (error) {
     console.error("Feedback kaydedilirken bir hata oluştu:", error);
   }
-
-  revalidatePath("/interviews");
 };
 
 export const getInterviewFeedback = async (interviewId: number) => {
@@ -303,4 +300,22 @@ export const getInterviewFeedback = async (interviewId: number) => {
     console.error("Feedback getirilirken bir hata oluştu:", error);
     return [];
   }
+};
+
+export const executeCode = async (sourceCode: string, language: string) => {
+  const baseURL = "https://emkc.org/api/v2/piston/execute";
+
+  const response = await fetch(baseURL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      language: language,
+      version: LANGUAGE_VERSIONS[language as keyof typeof LANGUAGE_VERSIONS],
+      files: [{ content: sourceCode }],
+    }),
+  });
+  const data = await response.json();
+  return data;
 };
