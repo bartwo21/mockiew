@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --background: #09090B;
+  --background: #09090b;
   --foreground: #ededed;
 }
 
@@ -117,4 +117,8 @@ body {
 ::-webkit-scrollbar-thumb {
   border-radius: 8px;
   background-color: #363636;
+}
+.overflow-guard,
+.monaco-editor {
+  border-radius: 7px;
 }
