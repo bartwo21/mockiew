@@ -20,8 +20,8 @@ export default async function page() {
   return (
     <div className="flex flex-col items-center justify-center p-10 mx-auto relative h-full w-full bg-transparent">
       <div className="absolute top-0 z-[-2] w-full h-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-35%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
-      <h1 className="text-primary font-bold text-3xl mb-10 w-full text-center">
-        MÜLAKATLARIM
+      <h1 className="text-primary text-2xl text-left w-5/6 ml-8">
+        Mülakatlarım
         <div>
           <hr className="my-4 h-0.5 border-t-0 bg-neutral-800 dark:bg-white/10" />
         </div>
@@ -31,7 +31,7 @@ export default async function page() {
           <p className="text-lg text-neutral-500 dark:text-neutral-400">
             Henüz bir mülakatınız bulunmamaktadır. Mülakat eklemek için{" "}
             <Link href="/interview">
-              <span className="text-primary transition-all hover:text-green-300">
+              <span className="text-primary transition-all hover:text-primary/80">
                 buraya
               </span>
             </Link>{" "}
@@ -40,7 +40,7 @@ export default async function page() {
         </div>
       ) : (
         <Suspense fallback={<InterviewsLoading />}>
-          <div className="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-2 gap-4 w-5/6">
             {/*  grid ile card height sorunu çözüldü */}
             {interviews.map((interview: any) => (
               <ClientInterviewCard key={interview.id} interview={interview} />

@@ -23,7 +23,11 @@ export default function Header({ session }: { session: any }) {
   };
 
   return (
-    <header className="w-full py-6 bg-[#09090B] shadow-md z-10">
+    <header
+      className={`w-full py-6 shadow-md z-10 ${
+        pathname === "/" ? "bg-[#09090B]" : "bg-[#0f0f0f]"
+      }`}
+    >
       <nav className="container mx-auto flex justify-between items-center px-4">
         <div className="flex items-center gap-8 justify-center">
           <div onClick={() => handleNavigation("/")} className="cursor-pointer">

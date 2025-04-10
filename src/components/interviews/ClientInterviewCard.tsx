@@ -33,7 +33,7 @@ export default function ClientInterviewCard({ interview }: any) {
   return (
     <div className="p-4 w-full">
       <Link href={`/interviews/feedback/${interview.id}`} passHref>
-        <div className="group h-full bg-black bg-opacity-65 border border-transparent hover:border-green-950 hover:border-opacity-60 transition-all duration-500 px-8 pt-6 pb-6 rounded-lg overflow-hidden flex flex-col justify-between">
+        <div className="group h-full bg-emerald-950/10 border border-gray-800/40 bg-opacity-65 hover:border-green-950 hover:border-opacity-60 transition-all duration-500 px-8 pt-6 pb-6 rounded-lg overflow-hidden flex flex-col justify-between">
           <div>
             <h2 className="tracking-widest text-[10px] title-font font-medium text-gray-500 mb-1">
               {interview.status.charAt(0).toUpperCase() +
@@ -45,7 +45,7 @@ export default function ClientInterviewCard({ interview }: any) {
             </h1>
           </div>
           <div>
-            <a className="text-green-500 inline-flex items-center">
+            <a className="text-primary inline-flex items-center">
               Detaylar
               <svg
                 className="w-4 h-4 ml-2"

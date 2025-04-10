@@ -49,7 +49,7 @@ export default async function RootLayout({
                 Made with ❤️ by{" "}
                 <Link
                   target="_blank"
-                  className="hover:text-green-600 transition-colors"
+                  className="hover:text-primary transition-colors"
                   href="https://bartwo.vercel.app/"
                 >
                   Bartu Çakır
