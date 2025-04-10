@@ -12,8 +12,8 @@ import InterviewTypeSelection from "@/components/interview/InterviewTypeSelectio
 import GeneralInterviewForm from "@/components/interview/GeneralInterviewForm";
 import CodingInterviewForm from "@/components/interview/CodingInterviewForm";
 import InterviewQuestions from "@/components/interview/InterviewQuestions";
-import NewInterviewButton from "@/components/interview/NewInterviewButton";
 import SaveInterviewButton from "@/components/interview/SaveInterviewButton";
+import { LoadingSpinner } from "@/helpers/loadingSpinner";
 
 export default function InterviewPage() {
   const [userEmail, setUserEmail] = useState(null);
@@ -58,10 +58,6 @@ export default function InterviewPage() {
     fetchUser();
   }, []);
 
-  const startNewInterview = () => {
-    window.location.reload();
-  };
-
   const handleAnswerChange = (index: number, value: string) => {
     const newAnswers = [...answers];
     newAnswers[index] = value;
@@ -94,7 +90,7 @@ export default function InterviewPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center lg:mt-16 mt-4">
+    <div className="flex flex-col items-center justify-center lg:mt-8 mt-4 min-h-[60vh]">
       <BackgroundGradient />
       <div className="w-full lg:w-3/4 flex flex-col px-4">
         <div className="grid w-full gap-2">
@@ -111,12 +107,11 @@ export default function InterviewPage() {
             ) : jobTitleState === "code" ? (
               <CodingInterviewForm onBack={() => setJobTitleState(null)} />
             ) : null
-          ) : (
-            <NewInterviewButton
-              onStartNewInterview={startNewInterview}
-              isLoading={isLoading}
-            />
-          )}
+          ) : isLoading && !data ? (
+            <div className="flex justify-center items-center h-full">
+              <LoadingSpinner />
+            </div>
+          ) : null}
         </div>
 
         {data && (

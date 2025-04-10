@@ -122,7 +122,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           Cevapların İçin Geri Bildirim Al
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="max-h-[500px] max-w-[1500px] overflow-y-auto bg-black">
+      <AlertDialogContent className="max-h-[500px] max-w-[1500px] overflow-y-auto bg-zinc-950">
         <AlertDialogHeader>
           <AlertDialogTitle className="flex justify-between">
             Geri Bildirim

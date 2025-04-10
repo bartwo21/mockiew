@@ -56,7 +56,7 @@ export const formatText = (
       formattedText = formattedText.replace(
         /```([\s\S]*?)```/g,
         (match, code) => {
-          return `<div class="bg-gray-900/30 p-4 rounded-md my-2 overflow-x-auto"><pre class="text-gray-300"><code>${code.trim()}</code></pre></div>`;
+          return `<div class="bg-[#0e0e11] p-4 rounded-md my-2 overflow-x-auto"><pre class="text-gray-300"><code>${code.trim()}</code></pre></div>`;
         }
       );
 
@@ -94,10 +94,10 @@ export const formatText = (
 export const formatCodeBlock = (code: string): string => {
   if (code.includes("```")) {
     return code.replace(/```([\s\S]*?)```/g, (match, codeContent) => {
-      return `<div class="bg-gray-900/30 p-4 rounded-md my-2 overflow-x-auto"><pre class="text-gray-300"><code>${codeContent.trim()}</code></pre></div>`;
+      return `<div class="bg-[#0e0e11] p-4 rounded-md my-2 overflow-x-auto"><pre class="text-gray-300"><code>${codeContent.trim()}</code></pre></div>`;
     });
   } else {
-    return `<div class="bg-gray-900/30 p-4 rounded-md my-2 overflow-x-auto"><pre class="text-gray-300"><code>${code.trim()}</code></pre></div>`;
+    return `<div class="bg-[#0e0e11] p-4 rounded-md my-2 overflow-x-auto"><pre class="text-gray-300"><code>${code.trim()}</code></pre></div>`;
   }
 };
 

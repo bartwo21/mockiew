@@ -51,7 +51,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     <div className="flex gap-4 flex-col lg:flex-row">
       <div className="w-full lg:w-1/2">
         <Editor
-          height="75vh"
+          height="35vh"
           theme="vs-dark"
           defaultLanguage={language.toLowerCase()}
           defaultValue={CODE_SNIPPETS[language as keyof typeof CODE_SNIPPETS]}

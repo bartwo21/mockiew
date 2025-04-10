@@ -55,7 +55,7 @@ export const Output: React.FC<OutputProps> = ({ editorRef, language }) => {
           "Kodu Çalıştır"
         )}
       </Button>
-      <div className="p-4 bg-gray-950 rounded-lg h-[75vh]">
+      <div className="p-4 bg-zinc-950 rounded-lg h-[35vh]">
         <pre className="text-gray-200 font-mono text-sm whitespace-pre-wrap">
           {output ? (
             <span className={`text-gray-300 ${isError ? "text-red-500" : ""}`}>
