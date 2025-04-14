@@ -22,16 +22,16 @@ export const CustomAvatar: React.FC<CustomAvatarProps> = ({
       initial={{ scale: 0.97 }}
       animate={{
         scale: 1,
-        y: [0, -1, 0],
-        x: [0, 1, 0],
+        y: [0, -3, 0],
+        x: [0, 3, 0],
       }}
       transition={{
-        duration: 2,
+        duration: 6,
         ease: "easeInOut",
         repeat: Infinity,
         repeatType: "reverse",
         y: {
-          duration: 3,
+          duration: 8,
           repeat: Infinity,
           ease: "easeInOut",
         },
