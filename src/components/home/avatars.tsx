@@ -19,11 +19,11 @@ export const CustomAvatar: React.FC<CustomAvatarProps> = ({
   return (
     <motion.div
       className={`absolute ${positionStyles}`}
-      initial={{ scale: 0.95 }}
+      initial={{ scale: 0.97 }}
       animate={{
         scale: 1,
-        y: [0, -2, 0],
-        x: [0, 2, 0],
+        y: [0, -1, 0],
+        x: [0, 1, 0],
       }}
       transition={{
         duration: 2,
