@@ -43,7 +43,7 @@ export default async function RootLayout({
             {children}
             <Toaster />
           </main>
-          <footer className="w-full pt-6 bg-[#09090B] text-white text-center z-10 flex justify-around mt-20">
+          <footer className="w-full pt-6 bg-[#09090B] text-white text-center z-10 flex justify-around mt-40">
             <div className="z-10 p-2 bg-slate-300 rounded-t-2xl opacity-40">
               <p className="text-xs text-gray-800 text-center">
                 Made with ❤️ by{" "}
