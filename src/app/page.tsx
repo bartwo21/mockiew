@@ -23,8 +23,8 @@ export default function LandingPage({ searchParams }: { searchParams: any }) {
         }
       />
 
-      <div className="absolute inset-0 bg-grid-pattern -mt-4"></div>
-      <div className="absolute inset-0 bg-radial-gradient"></div>
+      <div className="absolute inset-0 bg-grid-pattern -mt-28"></div>
+      <div className="absolute inset-0 bg-radial-gradient -mt-28"></div>
       <div className="absolute inset-0 z-20 hidden md:block">
         <CustomAvatar
           src="/avatar1.jpg"
@@ -47,7 +47,7 @@ export default function LandingPage({ searchParams }: { searchParams: any }) {
           iconRotation="right-16 -bottom-6 rotate-[135deg]"
         />
       </div>
-      <section className="relative flex items-center flex-col justify-center container mx-auto text-center mb-20 z-20 md:mt-32 mt-10 h-[40vh]">
+      <section className="relative flex items-center flex-col justify-center container mx-auto text-center mb-20 z-20 md:mt-32 mt-10 h-[50vh]">
         <h2 className="md:text-7xl text-4xl font-bold text-gray-100 mb-6">
           Mülakatlara Hazır Olun
         </h2>

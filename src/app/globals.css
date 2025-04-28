@@ -99,7 +99,7 @@ body {
 .bg-radial-gradient {
   background: radial-gradient(
     circle,
-    rgba(9, 9, 11, 0) 30%,
+    rgba(9, 9, 11, 0) 60%,
     rgba(9, 9, 11, 0.8) 90%
   );
 }

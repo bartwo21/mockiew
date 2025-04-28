@@ -39,7 +39,7 @@ export default async function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
         >
           <Header session={session} />
-          <main className="flex-grow">
+          <main className="flex-grow mt-28">
             {children}
             <Toaster />
           </main>

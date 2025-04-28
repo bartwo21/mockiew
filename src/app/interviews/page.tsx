@@ -18,7 +18,7 @@ export default async function page() {
   const interviews = email ? await getAllInterviews(email) : [];
 
   return (
-    <div className="flex flex-col items-center justify-center p-10 mx-auto relative h-full w-full bg-transparent">
+    <div className="flex flex-col items-center justify-center p-10 mx-auto h-full w-full bg-transparent">
       <div className="absolute top-0 z-[-2] w-full h-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-35%,rgba(120,119,198,0.15),rgba(255,255,255,0))]"></div>
       <h1 className="text-primary text-2xl text-left w-5/6 ml-8">
         Mülakatlarım

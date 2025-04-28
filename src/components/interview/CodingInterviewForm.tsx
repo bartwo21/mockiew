@@ -140,17 +140,9 @@ export default function CodingInterviewForm({
 
   return (
     <div className="bg-black/50 border border-gray-800 rounded-lg p-8 backdrop-blur-sm shadow-lg">
-      <h1 className="text-3xl text-center my-2 mb-7 text-gray-200">
-        Kod Yazma Mülakat Sorusu
-      </h1>
       <div className="space-y-6">
-        <p className="text-gray-300">
-          Aşağıdaki soru algoritma ve programlama becerilerinizi ölçmek için
-          yapay zeka tarafından oluşturuldu.
-        </p>
-
-        <div className="space-y-6">
-          <Card className="bg-black/30 border-gray-900">
+        <div className="flex gap-6">
+          <Card className="bg-black/30 border-gray-900 w-1/2">
             <CardContent className="p-6">
               <h2 className="text-lg text-primary">Programlama Sorusu</h2>
               <div className="rounded-md mt-2">
@@ -171,7 +163,7 @@ export default function CodingInterviewForm({
             </CardContent>
           </Card>
 
-          <div className="border border-gray-900 rounded-lg overflow-hidden p-6 relative ">
+          <div className="border border-gray-900 rounded-lg overflow-hidden p-6 relative w-1/2">
             <div className="flex justify-between items-center sm:flex-row flex-col">
               <h3 className="text-lg text-primary mb-4">Kod Editörü</h3>
               <div className="flex gap-4 mb-6 w-[175px]">
@@ -208,18 +200,17 @@ export default function CodingInterviewForm({
               onChange={handleCodeChange}
             />
           </div>
+        </div>
+        <div className="flex items-center gap-4 mt-6 w-1/6 ml-auto">
+          <Button className="w-1/2" variant="outline" onClick={onBack}>
+            Geri Dön
+          </Button>
 
-          <div className="flex items-center gap-4 mt-6">
-            <Button className="w-1/2" variant="outline" onClick={onBack}>
-              Geri Dön
-            </Button>
-
-            <div className="-mt-5 w-1/2">
-              <SaveInterviewButton
-                onSave={handleSubmit}
-                answered={isSubmitting}
-              />
-            </div>
+          <div className="-mt-5 w-1/2">
+            <SaveInterviewButton
+              onSave={handleSubmit}
+              answered={isSubmitting}
+            />
           </div>
         </div>
       </div>

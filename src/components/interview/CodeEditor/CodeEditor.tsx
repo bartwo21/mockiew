@@ -16,12 +16,14 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
   const [value, setValue] = useState<string | undefined>();
   const [initialized, setInitialized] = useState(false);
+  const [editorHeight, setEditorHeight] = useState("30vh");
+  const [isResizing, setIsResizing] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const onMount: OnMount = (editor) => {
     editorRef.current = editor;
     editor.focus();
 
-    // İlk yüklemede değeri ayarla
     if (!initialized) {
       const initialValue =
         CODE_SNIPPETS[language as keyof typeof CODE_SNIPPETS];
@@ -31,7 +33,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     }
   };
 
-  // Sadece dil değiştiğinde değeri güncelle
   useEffect(() => {
     if (editorRef.current && initialized) {
       const newValue = CODE_SNIPPETS[language as keyof typeof CODE_SNIPPETS];
@@ -47,11 +48,48 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     }
   };
 
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsResizing(true);
+    e.preventDefault();
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!isResizing || !containerRef.current) return;
+
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const newHeight = e.clientY - containerRect.top;
+
+    const minHeight = 150;
+    const maxHeight = window.innerHeight - 250;
+    const clampedHeight = Math.min(Math.max(newHeight, minHeight), maxHeight);
+
+    setEditorHeight(`${clampedHeight}px`);
+  };
+
+  const handleMouseUp = () => {
+    setIsResizing(false);
+  };
+
+  useEffect(() => {
+    if (isResizing) {
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
+    }
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isResizing]);
+
   return (
-    <div className="flex gap-4 flex-col lg:flex-row">
-      <div className="w-full lg:w-1/2">
+    <div
+      className="flex gap-4 flex-col h-[calc(100vh-400px)]"
+      ref={containerRef}
+    >
+      <div className="w-full" style={{ height: editorHeight }}>
         <Editor
-          height="35vh"
+          height="100%"
           theme="vs-dark"
           defaultLanguage={language.toLowerCase()}
           defaultValue={CODE_SNIPPETS[language as keyof typeof CODE_SNIPPETS]}
@@ -68,8 +106,16 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           }}
         />
       </div>
-      <div className="output-box w-full lg:w-1/2">
-        <Output editorRef={editorRef} language={language} />
+      <div
+        className="w-full h-1 bg-gray-900 cursor-row-resize hover:bg-gray-800 transition-colors"
+        onMouseDown={handleMouseDown}
+      />
+      <div className="output-box w-full min-h-[150px] flex-1">
+        <Output
+          editorRef={editorRef}
+          language={language}
+          containerHeight={parseInt(editorHeight)}
+        />
       </div>
     </div>
   );
