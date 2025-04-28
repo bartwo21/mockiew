@@ -61,20 +61,23 @@ export const Output: React.FC<OutputProps> = ({
         )}
       </Button>
       <div
-        className="p-4 bg-zinc-950 rounded-lg relative"
+        className="p-4 bg-zinc-950 rounded-lg relative overflow-hidden pb-20 lg:min-h-[180px] min-h-[100px]"
         style={{
           height: containerHeight
             ? `calc(100vh - ${containerHeight}px - 236px)`
             : "20vh",
-          minHeight: "150px",
         }}
       >
         <span className="text-gray-500 font-mono text-sm border border-gray-800 p-2 pl-3 absolute top-0 left-0 border-t-0 border-l-0">
           Console
         </span>
-        <pre className="text-gray-200 font-mono text-sm whitespace-pre-wrap mt-8">
+        <pre className="text-gray-200 font-mono text-sm whitespace-pre-wrap mt-8 overflow-y-auto h-full">
           {output ? (
-            <span className={`text-gray-300 ${isError ? "text-red-500" : ""}`}>
+            <span
+              className={`text-gray-300 ${
+                isError ? "text-red-500" : ""
+              } break-words`}
+            >
               {Array.isArray(output)
                 ? output.map((line, index) => (
                     <span key={index}>
@@ -99,7 +102,9 @@ export const Output: React.FC<OutputProps> = ({
               >
                 <path d="M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM4 5V19H20V5H4ZM12 15H18V17H12V15ZM8.66685 12L5.83842 9.17157L7.25264 7.75736L11.4953 12L7.25264 16.2426L5.83842 14.8284L8.66685 12Z"></path>
               </svg>
-              Çıktı için &apos;Kodu Çalıştır&apos; butonuna tıklayınız.
+              <span className="lg:flex hidden">
+                Çıktı için &apos;Kodu Çalıştır&apos; butonuna tıklayınız.
+              </span>
             </span>
           )}
         </pre>

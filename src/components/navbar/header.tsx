@@ -40,7 +40,7 @@ export default function Header({ session }: { session: any }) {
             isScrolled
               ? "bg-slate-500/10 backdrop-blur-md shadow-lg border-slate-500/10"
               : "bg-transparent border-white/10"
-          } rounded-full border`}
+          } lg:rounded-full rounded-2xl border`}
         >
           <div className="flex justify-between items-center py-3 px-12">
             <div className="flex items-center gap-8">
@@ -111,7 +111,7 @@ export default function Header({ session }: { session: any }) {
                 </>
               ) : (
                 <div className="flex items-center gap-x-3">
-                  <p className="bg-white/10 p-2 px-4 rounded-full text-gray-100">
+                  <p className="bg-white/10 p-2 px-4 lg:rounded-full rounded-md text-gray-100">
                     {session?.user?.name}
                   </p>
                   <Logout />
@@ -160,7 +160,7 @@ export default function Header({ session }: { session: any }) {
           </div>
 
           {isMenuOpen && (
-            <div className="md:hidden px-6 py-4 border-t border-white/10">
+            <div className="md:hidden px-6 py-4 border-t border-white/10 bg-black">
               <div className="flex flex-col gap-4">
                 <div
                   onClick={() => handleNavigation("/interviews")}
@@ -197,7 +197,7 @@ export default function Header({ session }: { session: any }) {
                   </>
                 ) : (
                   <div className="flex flex-col gap-4">
-                    <p className="bg-white/10 p-2 px-4 rounded-full text-gray-100 text-center">
+                    <p className="bg-white/10 p-2 px-4 rounded-xl text-gray-100 text-center">
                       {session?.user?.name}
                     </p>
                     <Logout />

@@ -110,7 +110,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         className="w-full h-1 bg-gray-900 cursor-row-resize hover:bg-gray-800 transition-colors"
         onMouseDown={handleMouseDown}
       />
-      <div className="output-box w-full min-h-[150px] flex-1">
+      <div className="output-box w-full min-h-[175px] flex-1">
         <Output
           editorRef={editorRef}
           language={language}
