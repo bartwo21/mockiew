@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 import Link from "next/link";
@@ -41,6 +42,7 @@ export default async function RootLayout({
           <Header session={session} />
           <main className="flex-grow mt-28">
             {children}
+            <Analytics />
             <Toaster />
           </main>
           <footer className="w-full pt-6 bg-[#09090B] text-white text-center z-10 flex justify-around mt-40">
