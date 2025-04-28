@@ -84,7 +84,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   return (
     <div
-      className="flex gap-4 flex-col h-[calc(100vh-400px)]"
+      className="flex gap-4 flex-col lg:h-[calc(100vh-400px)] h-[calc(100vh-250px)]"
       ref={containerRef}
     >
       <div className="w-full" style={{ height: editorHeight }}>
@@ -110,7 +110,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         className="w-full h-1 bg-gray-900 cursor-row-resize hover:bg-gray-800 transition-colors"
         onMouseDown={handleMouseDown}
       />
-      <div className="output-box w-full min-h-[175px] flex-1">
+      <div className="output-box w-full lg:min-h-[175px] min-h-[200px] flex-1">
         <Output
           editorRef={editorRef}
           language={language}

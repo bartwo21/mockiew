@@ -43,7 +43,7 @@ export default function Header({ session }: { session: any }) {
           } lg:rounded-full rounded-2xl border`}
         >
           <div className="flex justify-between items-center py-3 px-12">
-            <div className="flex items-center gap-8">
+            <div className="flex items-center lg:gap-8 gap-4">
               <div
                 onClick={() => handleNavigation("/")}
                 className="cursor-pointer"
@@ -56,7 +56,7 @@ export default function Header({ session }: { session: any }) {
                   Mockiew
                 </span>
               </div>
-              <div className="hidden md:flex items-center gap-4 mt-1">
+              <div className="hidden md:flex items-center lg:gap-4 gap-2 mt-1">
                 <div
                   onClick={() => handleNavigation("/interviews")}
                   className="cursor-pointer"
