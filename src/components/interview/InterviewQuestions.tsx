@@ -16,7 +16,8 @@ export default function InterviewQuestions({
 }: InterviewQuestionsProps) {
   return (
     <div className="grid grid-cols-1 gap-4">
-      <h3 className="text-2xl text-center text-primary">
+      <h3 className="text-2xl text-left text-primary">
+        <span className="text-slate-100">Konu: </span>
         {`${
           (jobTitle ?? "").charAt(0).toUpperCase() +
             (jobTitle ?? "").slice(1) || "Belirtilmedi"
@@ -26,13 +27,14 @@ export default function InterviewQuestions({
         const title = question.trim();
 
         return (
-          <Card key={index} className="w-full bg-transparent flex">
-            <CardContent className="p-6 w-1/3">
-              <p className="text-center">{`Soru ${index + 1}`}</p>
-              <hr className="my-1 h-0.5 border-t-0 bg-neutral-800 dark:bg-white/10" />
+          <Card
+            key={index}
+            className="w-full bg-transparent flex md:flex-row flex-col"
+          >
+            <CardContent className="md:p-6 px-6 pt-6 pb-0 md:w-1/3 w-full flex items-center justify-start">
               <p className="font-bold">{title}</p>
             </CardContent>
-            <CardFooter className="flex flex-col w-2/3 p-6">
+            <CardFooter className="flex flex-col md:w-2/3 w-full p-6">
               <Textarea
                 className="my-auto resize-none w-full"
                 placeholder="Cevabınızı buraya yazın"

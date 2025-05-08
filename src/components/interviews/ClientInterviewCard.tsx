@@ -73,9 +73,9 @@ export default function ClientInterviewCard({ interview }: any) {
                 {loading ? (
                   <div className="flex justify-center items-center dark:invert pr-2 pl-1">
                     <span className="sr-only">Loading...</span>
-                    <div className="h-[2px] w-[2px] ml-1 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                    <div className="h-[2px] w-[2px] ml-1 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                    <div className="h-[2px] w-[2px] ml-1 bg-white rounded-full animate-bounce"></div>
+                    <div className="h-[4px] w-[4px] ml-1 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div className="h-[4px] w-[4px] ml-1 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                    <div className="h-[4px] w-[4px] ml-1 bg-white rounded-full animate-bounce"></div>
                   </div>
                 ) : (
                   <>

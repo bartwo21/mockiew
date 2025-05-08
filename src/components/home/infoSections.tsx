@@ -41,7 +41,7 @@ export default function InfoSections() {
           <div className="absolute w-16 h-16 rounded-full border-2 animate-pulse border-emerald-950/50"></div>
         </div>
       </div>
-      <section className="z-10 w-full flex justify-center items-center mt-32">
+      <section className="z-10 w-full flex justify-center items-center mt-32 mb-20">
         <div className="flex flex-col-reverse md:flex-row justify-between gap-16 w-3/4">
           <Image
             src="/left.jpg"

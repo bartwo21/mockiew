@@ -8,16 +8,13 @@ export default function InterviewTypeSelection({
   onSelectType,
 }: InterviewTypeSelectionProps) {
   return (
-    <div className="bg-black/50 border border-gray-800 rounded-lg p-8 backdrop-blur-sm shadow-lg">
+    <div>
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-primary mb-4">
+        <h2 className="text-6xl font-bold text-primary mb-8">
           Mülakat Tipi Seçimi
         </h2>
-        <p className="text-gray-300">
-          Hangi tür mülakat sorularını yanıtlamak istersiniz?
-        </p>
       </div>
-      <div className="flex flex-col gap-6 md:flex-row md:justify-between">
+      <div className="flex flex-col gap-8 md:flex-row md:justify-between w-1/2 mx-auto">
         <div className="border rounded-lg p-6 flex-1">
           <h3 className="text-xl font-semibold text-white mb-2">
             Genel Mülakat Soruları

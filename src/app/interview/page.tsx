@@ -93,7 +93,7 @@ export default function InterviewPage() {
     <div className="flex flex-col items-center justify-center lg:mt-8 mt-4 min-h-[60vh]">
       <BackgroundGradient />
       <div className="w-full flex flex-col lg:px-12 px-4">
-        <div className="grid w-full gap-2">
+        <div className="grid gap-2">
           {!interviewStarted ? (
             jobTitleState == null ? (
               <InterviewTypeSelection onSelectType={setJobTitleState} />
@@ -124,10 +124,12 @@ export default function InterviewPage() {
         )}
 
         {data && userEmail && (
-          <SaveInterviewButton
-            onSave={handleSaveInterview}
-            answered={answered}
-          />
+          <div className="w-1/6 ml-auto">
+            <SaveInterviewButton
+              onSave={handleSaveInterview}
+              answered={answered}
+            />
+          </div>
         )}
       </div>
     </div>

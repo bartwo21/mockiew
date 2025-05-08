@@ -62,8 +62,8 @@ export default function Header({ session }: { session: any }) {
                   className="cursor-pointer"
                 >
                   <Button
-                    variant="ghost"
-                    className={`text-gray-400 hover:text-white ${
+                    variant="link"
+                    className={`text-gray-400 hover:text-white hover:no-underline ${
                       pathname === "/interviews" ? "text-white" : ""
                     }`}
                   >
@@ -75,8 +75,8 @@ export default function Header({ session }: { session: any }) {
                   className="cursor-pointer"
                 >
                   <Button
-                    variant="ghost"
-                    className={`text-gray-400 hover:text-white ${
+                    variant="link"
+                    className={`text-gray-400 hover:text-white hover:no-underline ${
                       pathname === "/interview" ? "text-white" : ""
                     }`}
                   >
@@ -111,7 +111,7 @@ export default function Header({ session }: { session: any }) {
                 </>
               ) : (
                 <div className="flex items-center gap-x-3">
-                  <p className="bg-white/10 p-2 px-4 lg:rounded-full rounded-md text-gray-100">
+                  <p className="bg-white/10 p-2 px-4 lg:rounded-full rounded-md text-gray-100 text-sm">
                     {session?.user?.name}
                   </p>
                   <Logout />

@@ -139,79 +139,71 @@ export default function CodingInterviewForm({
   }
 
   return (
-    <div className="bg-black/50 border border-gray-800 rounded-lg p-8 backdrop-blur-sm shadow-lg">
-      <div className="space-y-6">
-        <div className="flex lg:flex-row flex-col gap-6">
-          <Card className="bg-black/30 border-gray-900 w-full lg:w-1/2">
-            <CardContent className="p-6">
-              <h2 className="text-lg text-primary">Programlama Sorusu</h2>
-              <div className="rounded-md mt-2">
-                {loading ? (
-                  <div className="flex space-x-2 justify-center items-center dark:invert">
-                    <span className="sr-only">Yükleniyor...</span>
-                    <div className="h-3 w-3 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                    <div className="h-3 w-3 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                    <div className="h-3 w-3 bg-white rounded-full animate-bounce"></div>
-                  </div>
-                ) : (
-                  <div
-                    className="whitespace-pre-wrap text-gray-300"
-                    dangerouslySetInnerHTML={{ __html: question }}
-                  />
-                )}
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="border border-gray-900 rounded-lg overflow-hidden p-6 relative w-full lg:w-1/2">
-            <div className="flex justify-between items-center sm:flex-row flex-col">
-              <h3 className="text-lg text-primary mb-4">Kod Editörü</h3>
-              <div className="flex gap-4 mb-6 w-[175px]">
-                <Select
-                  onValueChange={handleLanguageSelect}
-                  value={selectedLanguage}
-                >
-                  <SelectTrigger className="w-full bg-black/40 border-gray-900 text-white">
-                    <SelectValue placeholder="Programlama dili seçiniz" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-black/90 border-gray-900 text-white">
-                    {Object.keys(LANGUAGE_VERSIONS).map((lang) => (
-                      <SelectItem
-                        key={lang}
-                        value={lang}
-                        className="hover:bg-gray-800 focus:bg-gray-800 cursor-pointer"
-                      >
-                        {lang}{" "}
-                        <span className="text-xs text-gray-500 ml-1">
-                          {
-                            LANGUAGE_VERSIONS[
-                              lang as keyof typeof LANGUAGE_VERSIONS
-                            ]
-                          }
-                        </span>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+    <div className="space-y-6">
+      <div className="flex lg:flex-row flex-col gap-6">
+        <Card className="bg-black/30 border-gray-900 w-full lg:w-1/2">
+          <CardContent className="p-6">
+            <h2 className="text-lg text-primary">Programlama Sorusu</h2>
+            <div className="rounded-md mt-2">
+              {loading ? (
+                <div className="flex space-x-2 justify-center items-center dark:invert">
+                  <span className="sr-only">Yükleniyor...</span>
+                  <div className="h-3 w-3 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                  <div className="h-3 w-3 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                  <div className="h-3 w-3 bg-white rounded-full animate-bounce"></div>
+                </div>
+              ) : (
+                <div
+                  className="whitespace-pre-wrap text-gray-300"
+                  dangerouslySetInnerHTML={{ __html: question }}
+                />
+              )}
             </div>
-            <CodeEditor
-              language={selectedLanguage}
-              onChange={handleCodeChange}
-            />
-          </div>
-        </div>
-        <div className="flex items-center gap-4 mt-6 w-full lg:w-1/6 ml-auto">
-          <Button className="w-1/2" variant="outline" onClick={onBack}>
-            Geri Dön
-          </Button>
+          </CardContent>
+        </Card>
 
-          <div className="-mt-5 w-1/2">
-            <SaveInterviewButton
-              onSave={handleSubmit}
-              answered={isSubmitting}
-            />
+        <div className="border border-gray-900 bg-black/30 rounded-lg overflow-hidden p-6 relative w-full lg:w-1/2">
+          <div className="flex justify-between items-center sm:flex-row flex-col">
+            <h3 className="text-lg text-primary mb-4">Kod Editörü</h3>
+            <div className="flex gap-4 mb-6 w-[175px]">
+              <Select
+                onValueChange={handleLanguageSelect}
+                value={selectedLanguage}
+              >
+                <SelectTrigger className="w-full bg-black/40 border-gray-900 text-white">
+                  <SelectValue placeholder="Programlama dili seçiniz" />
+                </SelectTrigger>
+                <SelectContent className="bg-black/90 border-gray-900 text-white">
+                  {Object.keys(LANGUAGE_VERSIONS).map((lang) => (
+                    <SelectItem
+                      key={lang}
+                      value={lang}
+                      className="hover:bg-gray-800 focus:bg-gray-800 cursor-pointer"
+                    >
+                      {lang}{" "}
+                      <span className="text-xs text-gray-500 ml-1">
+                        {
+                          LANGUAGE_VERSIONS[
+                            lang as keyof typeof LANGUAGE_VERSIONS
+                          ]
+                        }
+                      </span>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
+          <CodeEditor language={selectedLanguage} onChange={handleCodeChange} />
+        </div>
+      </div>
+      <div className="flex items-center gap-4 mt-6 w-full lg:w-1/6 ml-auto">
+        <Button className="w-1/2" variant="outline" onClick={onBack}>
+          Geri Dön
+        </Button>
+
+        <div className="-mt-5 w-1/2">
+          <SaveInterviewButton onSave={handleSubmit} answered={isSubmitting} />
         </div>
       </div>
     </div>

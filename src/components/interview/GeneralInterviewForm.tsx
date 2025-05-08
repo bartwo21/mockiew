@@ -28,7 +28,7 @@ export default function GeneralInterviewForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex items-center justify-center md:flex-row flex-col md:gap-8 gap-3 bg-black/50 border border-gray-800 rounded-lg p-8 backdrop-blur-sm shadow-lg"
+      className="flex items-center justify-center md:flex-row flex-col md:gap-8 gap-3 bg-black/50 border lg:w-4/6 w-full mx-auto border-gray-800 rounded-lg p-8 backdrop-blur-sm shadow-lg"
     >
       <Image
         src="/startInterview-removebg-preview.png"
