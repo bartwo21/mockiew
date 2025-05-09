@@ -11,13 +11,13 @@ export default function AuthButton({
   title: string;
   loading?: boolean;
 }) {
-  const { data: session, update } = useSession();
+  const { data: session, update, status } = useSession();
 
   useEffect(() => {
     if (!session) {
       update();
     }
-  }, [session, update]);
+  }, [session, update, status]);
 
   return (
     <Button
