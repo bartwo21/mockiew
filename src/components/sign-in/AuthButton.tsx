@@ -14,8 +14,16 @@ export default function AuthButton({
   const { data: session, update, status } = useSession();
 
   useEffect(() => {
-    if (!session) {
-      update();
+    const updateSession = async () => {
+      try {
+        await update();
+      } catch (error) {
+        console.error("Session update error:", error);
+      }
+    };
+
+    if (status === "loading" || !session) {
+      updateSession();
     }
   }, [session, update, status]);
 
