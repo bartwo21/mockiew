@@ -124,7 +124,7 @@ export default function InterviewPage() {
         )}
 
         {data && userEmail && (
-          <div className="w-1/6 ml-auto">
+          <div className="w-[150px] ml-auto">
             <SaveInterviewButton
               onSave={handleSaveInterview}
               answered={answered}

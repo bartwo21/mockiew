@@ -58,7 +58,7 @@ export default async function RootLayout({
                 </Link>
               </p>
             </div>
-            <p className="opacity-35 text-xs mt-2">
+            <p className="opacity-35 text-xs mt-2 md:flex hidden">
               &copy; 2025 Mockiew. Tüm hakları saklıdır.
             </p>
           </footer>

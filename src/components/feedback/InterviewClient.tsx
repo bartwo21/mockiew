@@ -165,11 +165,13 @@ export default function InterviewClient({
 
   return (
     <Tabs defaultValue="your-answer" className="w-full">
-      <div className="flex justify-between items-center pt-[1.5rem] sm:flex-row flex-col">
+      <div className="flex justify-between items-center md:pt-[1.5rem] pt-3 sm:flex-row flex-col">
         <div className="mr-3 w-full">
           <div className="flex justify-between items-center border-b border-neutral-800 pb-2">
-            <h3 className="text-lg font-semibold mt-auto">Soru</h3>
-            <TabsList className="flex justify-center rounded-sm sm:my-0 my-3 ml-auto lg:flex-row flex-col h-full w-[50%] lg:w-[30%] bg-neutral-900">
+            <h3 className="text-lg font-semibold mt-auto md:flex hidden">
+              Soru
+            </h3>
+            <TabsList className="flex justify-center rounded-sm sm:my-0 my-3 ml-auto h-full w-[100%] lg:w-[30%] bg-neutral-900">
               <TabsTrigger
                 value="your-answer"
                 className="text-center data-[state=active]:bg-zinc-950 rounded-sm w-full"

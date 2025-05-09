@@ -14,7 +14,7 @@ export default function InterviewTypeSelection({
           Mülakat Tipi Seçimi
         </h2>
       </div>
-      <div className="flex flex-col gap-8 md:flex-row md:justify-between w-1/2 mx-auto">
+      <div className="flex flex-col gap-8 md:flex-row md:justify-between md:w-1/2 w-full mx-auto">
         <div className="border rounded-lg p-6 flex-1">
           <h3 className="text-xl font-semibold text-white mb-2">
             Genel Mülakat Soruları
