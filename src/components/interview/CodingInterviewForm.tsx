@@ -51,6 +51,7 @@ export default function CodingInterviewForm({
     setCodeAnswer(code);
   };
 
+  console.log(session);
   const handleSubmit = async () => {
     if (!session?.user?.email) {
       toast.error("Cevabınızı kaydetmek için giriş yapmalısınız.");

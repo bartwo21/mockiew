@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "../ui/button";
-import { useSession } from "next-auth/react";
 
 export default function AuthButton({
   title,
@@ -11,21 +10,21 @@ export default function AuthButton({
   title: string;
   loading?: boolean;
 }) {
-  const { data: session, update, status } = useSession();
+  // const { data: session, update, status } = useSession();
 
-  useEffect(() => {
-    const updateSession = async () => {
-      try {
-        await update();
-      } catch (error) {
-        console.error("Session update error:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const updateSession = async () => {
+  //     try {
+  //       await update();
+  //     } catch (error) {
+  //       console.error("Session update error:", error);
+  //     }
+  //   };
 
-    if (status === "loading" || !session) {
-      updateSession();
-    }
-  }, [session, update, status]);
+  //   if (status === "loading" || !session) {
+  //     updateSession();
+  //   }
+  // }, [session, update, status]);
 
   return (
     <Button
