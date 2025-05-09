@@ -58,12 +58,10 @@ export const loginWithCreds = async (formData: FormData) => {
           errorMessage = "Bir hata oluştu.";
           break;
       }
-      // Hata mesajını cookie olarak ayarlıyoruz
       cookies().set("loginError", errorMessage, { maxAge: 5 });
       cookies().set("loginErrorTimestamp", Date.now().toString(), {
         maxAge: 5,
       });
-      // redirect("/sign-in");
       return;
     }
 
@@ -109,8 +107,9 @@ export const registerWithCreds = async (formData: FormData) => {
       },
     });
 
-    // Kullanıcıyı giriş yaptıralım.
     await signIn("credentials", rawFormData);
+    revalidatePath("/");
+    return { success: true, redirect: "/?successRegister=true" };
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.message) {
@@ -163,6 +162,9 @@ export const getAllInterviews = async (userEmail: string) => {
     const interviews = await db.interview.findMany({
       where: {
         userId: user.id,
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
 
@@ -257,7 +259,6 @@ export const saveFeedback = async (
       return;
     }
 
-    // Feedback'i kaydet
     await db.feedback.upsert({
       where: {
         interviewId: interviewId,
@@ -270,8 +271,6 @@ export const saveFeedback = async (
         content: feedbackText,
       },
     });
-
-    // Interview'un statusunu güncelle
     await db.interview.update({
       where: {
         id: interviewId,

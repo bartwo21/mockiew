@@ -1,22 +1,34 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "../ui/button";
-import { useFormStatus } from "react-dom";
+import { useSession } from "next-auth/react";
 
-export default function AuthButton({ title }: { title: string }) {
-  const { pending } = useFormStatus();
+export default function AuthButton({
+  title,
+  loading,
+}: {
+  title: string;
+  loading?: boolean;
+}) {
+  const { data: session, update } = useSession();
+
+  useEffect(() => {
+    if (!session) {
+      update();
+    }
+  }, [session, update]);
 
   return (
     <Button
-      disabled={pending}
+      disabled={loading}
       type="submit"
       className={
-        pending ? "opacity-50 cursor-not-allowed text-white" : "text-white"
+        loading ? "opacity-50 cursor-not-allowed text-white" : "text-white"
       }
     >
-      {pending ? (
-        <div className="flex space-x-2 justify-center items-center dark:invert">
+      {loading ? (
+        <div className="flex space-x-2 justify-center items-center dark:invert mt-1">
           <span className="sr-only">Loading...</span>
           <div className="h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
           <div className="h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>

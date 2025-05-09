@@ -11,6 +11,7 @@ export default function Logout() {
     setLoading(true);
     await logout();
     setLoading(false);
+    location.href = "/";
   };
 
   return (
