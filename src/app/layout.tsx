@@ -8,6 +8,7 @@ import "./globals.css";
 import Link from "next/link";
 import { auth } from "@/lib/Auth";
 import Header from "@/components/navbar/header";
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,35 +36,37 @@ export default async function RootLayout({
 
   return (
     <SessionProvider session={session}>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
-        >
-          <Header session={session} />
-          <main className="flex-grow mt-28">
-            {children}
-            <Analytics />
-            <Toaster />
-          </main>
-          <footer className="w-full pt-6 bg-[#09090B] text-white text-center z-10 flex justify-around mt-0">
-            <div className="z-10 p-2 bg-slate-300 rounded-t-2xl opacity-40">
-              <p className="text-xs text-gray-800 text-center">
-                Made with ❤️ by{" "}
-                <Link
-                  target="_blank"
-                  className="hover:text-primary transition-colors"
-                  href="https://bartwo.vercel.app/"
-                >
-                  Bartu Çakır
-                </Link>
+      <AuthProvider>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+          >
+            <Header session={session} />
+            <main className="flex-grow mt-28">
+              {children}
+              <Analytics />
+              <Toaster />
+            </main>
+            <footer className="w-full pt-6 bg-[#09090B] text-white text-center z-10 flex justify-around mt-0">
+              <div className="z-10 p-2 bg-slate-300 rounded-t-2xl opacity-40">
+                <p className="text-xs text-gray-800 text-center">
+                  Made with ❤️ by{" "}
+                  <Link
+                    target="_blank"
+                    className="hover:text-primary transition-colors"
+                    href="https://bartwo.vercel.app/"
+                  >
+                    Bartu Çakır
+                  </Link>
+                </p>
+              </div>
+              <p className="opacity-35 text-xs mt-2 md:flex hidden">
+                &copy; 2025 Mockiew. Tüm hakları saklıdır.
               </p>
-            </div>
-            <p className="opacity-35 text-xs mt-2 md:flex hidden">
-              &copy; 2025 Mockiew. Tüm hakları saklıdır.
-            </p>
-          </footer>
-        </body>
-      </html>
+            </footer>
+          </body>
+        </html>
+      </AuthProvider>
     </SessionProvider>
   );
 }
