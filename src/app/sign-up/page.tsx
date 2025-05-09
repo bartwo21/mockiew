@@ -1,21 +1,22 @@
 import LoginGithub from "@/components/sign-in/LoginGithub";
+import LoginGoogle from "@/components/sign-in/LoginGoogle";
 import React from "react";
 import {
   Card,
-  CardContent,
+  // CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import RegisterForm from "@/components/sign-in/RegisterForm";
+// import RegisterForm from "@/components/sign-in/RegisterForm";
 import { cookies } from "next/headers";
 import Image from "next/image";
 
 export default function Page() {
   const cookieStore = cookies();
   const errorMessage = cookieStore.get("registerError")?.value;
-  const errorTimestamp = cookieStore.get("registerErrorTimestamp")?.value;
+  // const errorTimestamp = cookieStore.get("registerErrorTimestamp")?.value;
 
   if (errorMessage) {
     cookies().set("registerError", "", { maxAge: -1 });
@@ -37,18 +38,17 @@ export default function Page() {
         <Card className="bg-transparent relative border-none shadow-none lg:w-[400px] w-full">
           <CardHeader>
             <CardTitle>Kayıt Ol</CardTitle>
-            <CardDescription>
-              Kayıt olmak için bilgilerinizi girin.
-            </CardDescription>
+            <CardDescription>Kayıt olmak için birini seçin.</CardDescription>
           </CardHeader>
-          <CardContent>
+          {/* <CardContent>
             <RegisterForm
               errorMessage={errorMessage}
               errorTimestamp={errorTimestamp}
-            />
-          </CardContent>
-          <CardFooter className="w-full">
+            /> 
+          </CardContent>*/}
+          <CardFooter className="w-full flex flex-col gap-3">
             <LoginGithub />
+            <LoginGoogle />
           </CardFooter>
         </Card>
       </div>

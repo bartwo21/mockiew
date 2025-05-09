@@ -1,21 +1,22 @@
 import { cookies } from "next/headers";
 import LoginGithub from "@/components/sign-in/LoginGithub";
+import LoginGoogle from "@/components/sign-in/LoginGoogle";
 import React from "react";
 import {
   Card,
-  CardContent,
+  // CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import LoginForm from "@/components/sign-in/LoginForm";
+// import LoginForm from "@/components/sign-in/LoginForm";
 import Image from "next/image";
 
 export default function Page() {
   const cookieStore = cookies();
   const errorMessage = cookieStore.get("loginError")?.value;
-  const errorTimestamp = cookieStore.get("loginErrorTimestamp")?.value;
+  // const errorTimestamp = cookieStore.get("loginErrorTimestamp")?.value;
 
   if (errorMessage) {
     cookies().set("loginError", "", { maxAge: -1 });
@@ -38,17 +39,18 @@ export default function Page() {
           <CardHeader>
             <CardTitle>Giriş Yap</CardTitle>
             <CardDescription>
-              Hesabınıza giriş yaparak devam edin.
+              Hesabınıza giriş yapmak için birini seçin.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          {/* <CardContent>
             <LoginForm
               errorMessage={errorMessage}
               errorTimestamp={errorTimestamp}
-            />
-          </CardContent>
-          <CardFooter className="w-full">
+            /> 
+          </CardContent>*/}
+          <CardFooter className="w-full flex flex-col gap-3">
             <LoginGithub />
+            <LoginGoogle />
           </CardFooter>
         </Card>
       </div>
